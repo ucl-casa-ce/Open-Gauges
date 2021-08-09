@@ -8,7 +8,7 @@
 #include <WiFiUdp.h>
 
 // Script turns on and off at set times and makes use of 2 LEDs and
-// 180 degree servo, an SG90 is recomended. Example code is for a Windvane
+// 180 degree servo, an SG90 is recomended. Example code is for a 270 degree Guage
 // using a Wind Speed mqtt feed.
 // It uses the 2:14 gear train set up in the Connected Environments Workshop
 // The code can bbe adaopted for other servo types/timezones and data feeds
