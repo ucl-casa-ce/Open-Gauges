@@ -10,7 +10,11 @@ The code can be used to create any gauge with a 360 degree range.
 
 ![Screen](https://github.com/ucl-casa-ce/WindSpeedGauge/blob/main/IMG_0031.JPG)
 
-See comments in the .ino file for set up and calibration details - here we are using a 270 degree range and an MQTT feed of wind speed.
+See comments in the .ino file for set up and calibration details - in the top image we are using a 270 degree range and an MQTT feed of wind speed on one guage and Air Quality (from a Davis Air Quality unit) on the other.
+
+
+ ![Screen](https://github.com/ucl-casa-ce/WindSpeedGauge/blob/main/gaugeparts.png)
+ 
  
  ![Screen](https://github.com/ucl-casa-ce/WindSpeedGauge/blob/main/gaugeparts.png)
  
