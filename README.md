@@ -12,8 +12,9 @@ The code can be used to create any gauge with a 360 degree range.
 
 See comments in the .ino file for set up and calibration details - in the top image we are using a 270 degree range and an MQTT feed of wind speed on one guage and Air Quality (from a Davis Air Quality unit) on the other.
 
+Wiring as per below on a NodeMCU, also commented in the Arduino code - pins can be changed according to your own board.
 
- ![Screen](https://github.com/ucl-casa-ce/WindSpeedGauge/blob/main/gaugeparts.png)
+ ![Screen](https://github.com/ucl-casa-ce/WindSpeedGauge/blob/main/GaugewithLEDS.png)
  
  
  ![Screen](https://github.com/ucl-casa-ce/WindSpeedGauge/blob/main/gaugeparts.png)
