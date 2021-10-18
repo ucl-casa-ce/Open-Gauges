@@ -19,3 +19,4 @@ Wiring as per below on a NodeMCU, also commented in the Arduino code - pins can 
  
  ![Screen](https://github.com/ucl-casa-ce/WindSpeedGauge/blob/main/gaugeparts.png)
  
+Note - The ServoEasing Library requires version 2.3.4 to work
