@@ -7,6 +7,7 @@
 #include <NTPClient.h>
 #include <WiFiUdp.h>
 
+//note ServoEasing needs to be version 2.3.4
 
 // Script turns on and off at set times and makes use of 2 LEDs and
 // 180 degree servo, an SG90 is recomended. Example code is for a 270 degree Guage
