@@ -6,13 +6,9 @@ Arduino Code, 3D printer files and Illustrator Templates for the Open Gauges pro
 
 It is requested that new Guages created - either via additions to the Arduino Code or via new Graphics file are added as new branches, creating a repository of both physical and digital gauges. New additions will be featured in this main thread.
 
-
 ![Screen](https://user-images.githubusercontent.com/50172263/137885191-930a2848-2113-4476-9749-7d5de1d089eb.png)
 
-
  In addition to reading the MQTT data and using the Servo Easing Library for the servo, the code also includes a time function, allowing the gauge to turn the LED lights/Servo on and off at set times. This is used to turn off at night.
- 
- ![Screen]https://github.com/ucl-casa-ce/Open-Gauges/blob/main/fusionstart.png
  
 ![Screen](https://github.com/ucl-casa-ce/WindSpeedGauge/blob/main/IMG_0292.jpg)
 
