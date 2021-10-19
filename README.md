@@ -10,6 +10,12 @@ The project aims to allow open source data gauges to be built, modified, and vie
 
 It is requested that new Guages created - either via additions to the Arduino Code or via new Graphics file are added as new branches, creating a repository of both physical and digital gauges. Notable new additions will be featured in this main thread.
 
+A total of 5 Dial Graphics are provided in this initial release - sized to fit into the 3D printed cases. 
+
+![Open Guages Initial Graphic Release](https://github.com/ucl-casa-ce/Open-Gauges/blob/main/Graphics%20Files/initialdials.png)
+
+The 5 Dial Graphics are - Temperature (-10 to 40 oC), Wind Speed (0-60 mph), Wind Dir (0 - 360), Air Pressure (950 - 1050 mb) and Co2 (400 - 1400 ppm)
+
 In addition to reading the MQTT data and using the Servo Easing Library for the servo, the code also includes a time function, allowing the gauge to turn the LED lights/Servo on and off at set times. This is used to turn off at night and on again in the morning.
 
 ![Screen](https://github.com/ucl-casa-ce/WindSpeedGauge/blob/main/IMG_0031.JPG)
