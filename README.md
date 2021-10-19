@@ -63,7 +63,7 @@ The Fusion 360 file can be exported into a variety of formats for import into sy
 
 </p>
 
-See the [twitter feed](https://twitter.com/digitalurban/status/1429775146538184704) for the full clip or to view and interact with the 3D model, see it on [https://sketchfab.com/models/d2f56be3ee4e4fc385374f9b7c5422ab/edit](Sketchfab).
+See the [twitter feed](https://twitter.com/digitalurban/status/1429775146538184704) for the full clip or to view and interact with the 3D model, it is available on [Sketchfab](https://skfb.ly/ooRqt).
 
 
  ![Screen](https://github.com/ucl-casa-ce/WindSpeedGauge/blob/main/gaugeparts.png)
