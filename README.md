@@ -1,8 +1,8 @@
 # Open Gauges
-
+### Arduino Code, 3D printer files and Illustrator Templates for the Open Gauges project
  ![Fusion Dial](https://github.com/ucl-casa-ce/Open-Gauges/blob/main/fusionstart.png)
  
-Arduino Code, 3D printer files and Illustrator Templates for the Open Gauges project. Run out the [Connected Environments Lab](https://connected-environments.org/) at [The Centre for Advanced Spatial Analysis](https://www.ucl.ac.uk/bartlett/casa), [University College London](https://www.ucl.ac.uk), the Open Gauges Project was initiated as part of the Module on Sensor Data Visualisation, part of the MSc in Connected Environments.
+Run out the [Connected Environments Lab](https://connected-environments.org/) at [The Centre for Advanced Spatial Analysis](https://www.ucl.ac.uk/bartlett/casa), [University College London](https://www.ucl.ac.uk), the Open Gauges Project was initiated as part of the Module on Sensor Data Visualisation, part of the MSc in Connected Environments.
 
 The project aims to allow open source data gauges to be built, modified, and viewed as both physical (3d printed) and digital gauges. Depending on the user’s preference the models can be made to run from any online data source with an MQTT feed - from Weather Data with Air Pressure, Temperature, Wind Speed etc though to Air Quality Gauges, Noise Meters, Energy etc. At the current time files to create the physical gauges are provided with versions to work in Augmented Reality, via Unity, incoming. The project was created by [Professor Andrew Hudson-Smith](https://connected-environments.org/people/) and [Dr Valerio Signorelli](https://connected-environments.org/people/). 
 
@@ -32,19 +32,19 @@ See comments in the .ino file for set up and calibration details - in the above 
 
 The gauges are made to be as simple as possible to make but allow enough flexibilty to allow them to be used to display a wide range of data types.
 
-# Parts List
+## Parts List
 
 The main parts are:
 
-Node MCU Arduino Board - we have been using the ([https://www.amazon.co.uk/MakerHawk-Internet-Development-Wireless-Micropython/dp/B07M8Q38LK/ref=sr_1_4?dchild=1&keywords=nodemcu&qid=1634650644&sr=8-4]MakerHawk boards). However, any Arudino compatiable board will suffice, the ease of using the above boards is the code will work without and changes to the pins.
+* _Node MCU Arduino Board_ - we have been using the ([MakerHawk boards](https://www.amazon.co.uk/MakerHawk-Internet-Development-Wireless-Micropython/dp/B07M8Q38LK/ref=sr_1_4?dchild=1&keywords=nodemcu&qid=1634650644&sr=8-4)). However, any Arduino compatiable board will suffice, the ease of using the above boards is the code will work without and changes to the pins.
 
-SG90 Servo - any SG90 style servo will work, we would however recommend the MG90S Micro Servo as it provides a smoother travel to the gauage pointer.
+* _SG90 Servo_ - any SG90 style servo will work, we would however recommend the MG90S Micro Servo as it provides a smoother travel to the gauage pointer.
 
-Lights - [https://shop.pimoroni.com/products/white-led-backlight-module?variant=36999548170](Pimorini White LED Backlight Module – 38.7mm x 11.9mm) x 2, although any low power led will also suffice
+* _Lights_ - [Pimorini White LED Backlight Module – 38.7mm x 11.9mm x 2mm](https://shop.pimoroni.com/products/white-led-backlight-module?variant=36999548170), although any low power led will also suffice
 
-PLA for 3D Printing - Any PLA for the main parts, the dials graphics are printed on paper and laid flat on a disc (see 3D Printer Files) printed in transparent PLA. This can be left out but it allows the dial to lay flat and provides a nice diffused light. eSun Transparent PLA works well.
+* _PLA for 3D Printing_ - Any PLA for the main parts, the dials graphics are printed on paper and laid flat on a disc (see 3D Printer Files) printed in transparent PLA. This can be left out but it allows the dial to lay flat and provides a nice diffused light. eSun Transparent PLA works well.
 
-# Wiring 
+## Wiring 
 
 As per below on a NodeMCU, also commented in the Arduino code - pins can be changed according to your own board.
 
