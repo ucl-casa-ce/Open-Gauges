@@ -8,7 +8,7 @@ The project aims to allow open source data gauges to be built, modified, and vie
 
 ![parts](https://github.com/ucl-casa-ce/Open-Gauges/blob/main/parts.png)
 
-It is requested that new Guages created - either via additions to the Arduino Code or via new Graphics file are added as new branches, creating a repository of both physical and digital gauges. New additions will be featured in this main thread.
+It is requested that new Guages created - either via additions to the Arduino Code or via new Graphics file are added as new branches, creating a repository of both physical and digital gauges. Notable new additions will be featured in this main thread.
 
 In addition to reading the MQTT data and using the Servo Easing Library for the servo, the code also includes a time function, allowing the gauge to turn the LED lights/Servo on and off at set times. This is used to turn off at night and on again in the morning.
 
