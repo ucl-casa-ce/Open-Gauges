@@ -1,6 +1,6 @@
 # Open Gauges
 
- ![Screen]https://github.com/ucl-casa-ce/Open-Gauges/blob/main/fusionstart.png
+ ![Open Guages Fusion Image](https://github.com/ucl-casa-ce/Open-Gauges/blob/main/fusionstart.png)
  
 Arduino Code, 3D printer files and Illustrator Templates for the Open Gauges project. Run out the Connected Environments Lab at The Centre for Advanced Spatial Analysis, University College London, the Open Gauges Project is produced as part of the Module on Sensor Data Visualisation, part of the MSc in Connected Environments. The project aims to allow data gauges to be built, modified, and viewed as both physical and digital gauges. Depending on the user’s preference the models can be made to run from any online data source with an MQTT feed - from Weather Data with Air Pressure, Temperature, Wind Speed etc though to Air Quality Gauges, Noise Meters, Energy etc. At the current time files to create the physical gauges are provided with versions to work in Augmented Reality, via Unity, incoming. The project was created by Professor Andrew Hudson-Smith and Dr Valerio Signorelli. 
 
