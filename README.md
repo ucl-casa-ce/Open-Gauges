@@ -30,7 +30,9 @@ See comments in the .ino file for set up and calibration details - in the above 
 
 ![Screen](https://github.com/ucl-casa-ce/WindSpeedGauge/blob/main/IMG_0031.JPG)
 
-The guages are made to be as simple as possible to make but allow enough flexibilty to allow them to be used to display a wide range of data types.
+The gauges are made to be as simple as possible to make but allow enough flexibilty to allow them to be used to display a wide range of data types.
+
+# Parts List
 
 The main parts are:
 
@@ -42,7 +44,9 @@ Lights - [https://shop.pimoroni.com/products/white-led-backlight-module?variant=
 
 PLA for 3D Printing - Any PLA for the main parts, the dials graphics are printed on paper and laid flat on a disc (see 3D Printer Files) printed in transparent PLA. This can be left out but it allow the dial to lay flat and provides a nice diffused light. eSun Transparent PLA works well.
 
-Wiring as per below on a NodeMCU, also commented in the Arduino code - pins can be changed according to your own board.
+# Wiring 
+
+As per below on a NodeMCU, also commented in the Arduino code - pins can be changed according to your own board.
 
  ![Screen](https://github.com/ucl-casa-ce/WindSpeedGauge/blob/main/GaugewithLEDS.png)
  
