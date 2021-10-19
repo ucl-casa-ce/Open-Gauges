@@ -50,6 +50,20 @@ As per below on a NodeMCU, also commented in the Arduino code - pins can be chan
 
  ![Screen](https://github.com/ucl-casa-ce/WindSpeedGauge/blob/main/GaugewithLEDS.png)
  
- ![Screen](https://github.com/ucl-casa-ce/WindSpeedGauge/blob/main/gaugeparts.png)
- 
 Note - The ServoEasing Library requires version 2.3.4
+
+# Augmented Reality / 3D Version
+
+ ![Screen](https://github.com/ucl-casa-ce/WindSpeedGauge/blob/main/blenderstart.png)
+
+The Fusion 360 file can be exported into a variety of formats for import into systems such as Sketchfab, Blender and Unity - via the Unity engine it can be developed into an Augmented Reality version.
+
+<p align="center">
+<img src="https://github.com/ucl-casa-ce/WindSpeedGauge/blob/main/ARdial.png">
+
+</p>
+
+See the [twitter feed](https://twitter.com/digitalurban/status/1429775146538184704) for an example of the above image. 
+
+
+ ![Screen](https://github.com/ucl-casa-ce/WindSpeedGauge/blob/main/gaugeparts.png)
