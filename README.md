@@ -20,7 +20,7 @@ The 5 Dial Graphics are - Temperature (-10 to 40 oC), Wind Speed (0-60 mph), Win
 
 In addition to reading the MQTT data and using the Servo Easing Library for the servo, the code also includes a time function, allowing the gauge to turn the LED lights/Servo on and off at set times. This is used to turn off at night and on again in the morning.
  
-The code can be used to create any gauge with a range from 180 to 360 degrees using a standard MG90 servo. A gear train is used to extend the servo range with the ability to calibrate in the code. On load, the servo performs a sweep function, to aid the calibration process.
+The code can be used to create any gauge with a range from 180 to 360 degrees using a standard SG90 servo. A gear train is used to extend the servo range with the ability to calibrate in the code. On load, the servo performs a sweep function, to aid the calibration process.
 
 ![Screen](https://github.com/ucl-casa-ce/WindSpeedGauge/blob/main/IMG_0292.jpg)
 
