@@ -36,7 +36,7 @@ The gauges are made to be as simple as possible to make but allow enough flexibi
 
 The main parts are:
 
-Node MCU Arduino Board - we have been using the MakerHawk boards However, any Arudino compatiable board will suffice, the ease of using the above boards is the code will work without and changes to the pins.
+Node MCU Arduino Board - we have been using the ([https://www.amazon.co.uk/MakerHawk-Internet-Development-Wireless-Micropython/dp/B07M8Q38LK/ref=sr_1_4?dchild=1&keywords=nodemcu&qid=1634650644&sr=8-4]MakerHawk boards). However, any Arudino compatiable board will suffice, the ease of using the above boards is the code will work without and changes to the pins.
 
 SG90 Servo - any SG90 style servo will work, we would however recommend the MG90S Micro Servo as it provides a smoother travel to the gauage pointer.
 
