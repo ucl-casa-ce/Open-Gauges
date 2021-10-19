@@ -54,6 +54,8 @@ Note - The ServoEasing Library requires version 2.3.4
 
 # Augmented Reality / 3D Version
 
+Note this section is a work in progress, a Unity project file is incoming.
+
  ![Screen](https://github.com/ucl-casa-ce/WindSpeedGauge/blob/main/blenderstart.png)
 
 The Fusion 360 file can be exported into a variety of formats for import into systems such as Sketchfab, Blender and Unity - via the Unity engine it can be developed into an Augmented Reality version.
