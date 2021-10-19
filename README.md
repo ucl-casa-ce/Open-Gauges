@@ -16,11 +16,9 @@ A total of 5 Dial Graphics are provided in this initial release - sized to fit i
 <img src="https://github.com/ucl-casa-ce/Open-Gauges/blob/main/Graphics%20Files/initialdials.png">
 
 </p>
-The 5 Dial Graphics are - Temperature (-10 to 40 oC), Wind Speed (0-60 mph), Wind Dir (0 - 360), Air Pressure (950 - 1050 mb) and Co2 (400 - 1400 ppm)
+The 5 Dial Graphics are - Temperature (-10 to 40 oC), Wind Speed (0-60 mph), Wind Dir (0 - 360), Air Pressure (950 - 1050 mb) and Co2 (400 - 1400 ppm).
 
 In addition to reading the MQTT data and using the Servo Easing Library for the servo, the code also includes a time function, allowing the gauge to turn the LED lights/Servo on and off at set times. This is used to turn off at night and on again in the morning.
-
-![Screen](https://github.com/ucl-casa-ce/WindSpeedGauge/blob/main/IMG_0031.JPG)
  
 The code can be used to create any gauge with a range from 180 to 360 degrees using a standard MG90 servo. A gear train is used to extend the servo range with the ability to calibrate in the code. On load, the servo performs a sweep function, to aid the calibration process.
 
@@ -29,6 +27,8 @@ The code can be used to create any gauge with a range from 180 to 360 degrees us
 See comments in the .ino file for set up and calibration details - in the above image we are using a 270 degree range and an MQTT feed of wind speed on one guage and Air Quality (from a Davis Air Quality unit) on the other.
 
 ![techdrwaing](https://github.com/ucl-casa-ce/Open-Gauges/blob/main/techdraw3.png)
+
+![Screen](https://github.com/ucl-casa-ce/WindSpeedGauge/blob/main/IMG_0031.JPG)
 
 Wiring as per below on a NodeMCU, also commented in the Arduino code - pins can be changed according to your own board.
 
