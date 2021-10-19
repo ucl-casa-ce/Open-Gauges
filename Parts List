@@ -1,0 +1,6 @@
+
+The guages are made to be as simple as possible to make but allow enough flexibilty to allow them to be used to display a wide range of data types.
+
+The main parts are:
+
+1) Node MCU Arduino Board - we have been using the [MakerHawk boards](https://www.amazon.co.uk/MakerHawk-Internet-Development-Wireless-Micropython/dp/B07M8Q38LK/ref=sr_1_4?dchild=1&keywords=nodemcu&qid=1634650644&sr=8-4_ - 
