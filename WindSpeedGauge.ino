@@ -1,13 +1,13 @@
 
 
-#include <ServoEasing.h>
+#include "ServoEasing.hpp"
 #include <ESP8266WiFi.h>
 #include <WiFiClient.h>
 #include <PubSubClient.h>
 #include <NTPClient.h>
 #include <WiFiUdp.h>
 
-//note ServoEasing needs to be version 2.3.4
+//note ServoEasing needs to be version 2.4.x
 
 // Script turns on and off at set times and makes use of 2 LEDs and
 // 180 degree servo, an SG90 is recomended. Example code is for a 270 degree Guage
