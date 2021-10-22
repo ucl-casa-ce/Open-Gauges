@@ -1,12 +1,12 @@
 # Open Gauges
 ### Arduino Code, 3D printer files and Illustrator Templates for the Open Gauges project
- ![Fusion Dial](https://github.com/ucl-casa-ce/Open-Gauges/blob/main/fusionstart.png)
+ ![Fusion Dial](https://github.com/ucl-casa-ce/Open-Gauges/blob/main/imgs/fusionstart.png)
  
 Run out the [Connected Environments Lab](https://connected-environments.org/) at [The Centre for Advanced Spatial Analysis](https://www.ucl.ac.uk/bartlett/casa), [University College London](https://www.ucl.ac.uk), the Open Gauges Project was initiated as part of the Module on Sensor Data Visualisation, part of the MSc in Connected Environments.
 
 The project aims to allow open source data gauges to be built, modified, and viewed as both physical (3d printed) and digital gauges. Depending on the user’s preference the models can be made to run from any online data source with an MQTT feed - from Weather Data with Air Pressure, Temperature, Wind Speed etc though to Air Quality Gauges, Noise Meters, Energy etc. At the current time files to create the physical gauges are provided with versions to work in Augmented Reality, via Unity, incoming. The project was created by [Professor Andrew Hudson-Smith](https://connected-environments.org/people/) and [Dr Valerio Signorelli](https://connected-environments.org/people/). 
 
-![parts](https://github.com/ucl-casa-ce/Open-Gauges/blob/main/parts.png)
+![parts](https://github.com/ucl-casa-ce/Open-Gauges/blob/main/imgs/parts.png)
 
 It is requested that new Guages created - either via additions to the Arduino Code or via new Graphics file are added as new branches, creating a repository of both physical and digital gauges. Notable new additions will be featured in this main thread.
 
@@ -22,13 +22,13 @@ In addition to reading the MQTT data and using the Servo Easing Library for the 
  
 The code can be used to create any gauge with a range from 180 to 360 degrees using a standard SG90 servo. A gear train is used to extend the servo range with the ability to calibrate in the code. On load, the servo performs a sweep function, to aid the calibration process.
 
-![Screen](https://github.com/ucl-casa-ce/WindSpeedGauge/blob/main/IMG_0292.jpg)
+![Screen](https://github.com/ucl-casa-ce/WindSpeedGauge/blob/main/imgs/IMG_0292.jpg)
 
 See comments in the .ino file for set up and calibration details - in the above image we are using a 270 degree range and an MQTT feed of wind speed on one guage and Air Quality (from a Davis Air Quality unit) on the other.
 
-![techdrwaing](https://github.com/ucl-casa-ce/Open-Gauges/blob/main/techdraw3.png)
+![techdrwaing](https://github.com/ucl-casa-ce/Open-Gauges/blob/main/imgs/techdraw3.png)
 
-![Screen](https://github.com/ucl-casa-ce/WindSpeedGauge/blob/main/IMG_0031.JPG)
+![Screen](https://github.com/ucl-casa-ce/WindSpeedGauge/blob/main/imgs/IMG_0031.JPG)
 
 The gauges are made to be as simple as possible to make but allow enough flexibilty to allow them to be used to display a wide range of data types.
 
@@ -48,7 +48,7 @@ The main parts are:
 
 As per below on a NodeMCU, also commented in the Arduino code - pins can be changed according to your own board.
 
- ![Screen](https://github.com/ucl-casa-ce/WindSpeedGauge/blob/main/GaugewithLEDS.png)
+ ![Screen](https://github.com/ucl-casa-ce/WindSpeedGauge/blob/main/imgs/GaugewithLEDS.png)
  
 Note - The ServoEasing Library requires version 2.3.4
 
@@ -56,16 +56,16 @@ Note - The ServoEasing Library requires version 2.3.4
 
 Note this section is a work in progress, a Unity project file is incoming.
 
- ![Screen](https://github.com/ucl-casa-ce/WindSpeedGauge/blob/main/blenderstart.png)
+ ![Screen](https://github.com/ucl-casa-ce/WindSpeedGauge/blob/main/imgs/blenderstart.png)
 
 The Fusion 360 file can be exported into a variety of formats for import into systems such as Sketchfab, Blender and Unity - via the Unity engine it can be developed into an Augmented Reality version.
 
 <p align="center">
-<img src="https://github.com/ucl-casa-ce/WindSpeedGauge/blob/main/ARdial.png">
+<img src="https://github.com/ucl-casa-ce/WindSpeedGauge/blob/main/imgs/ARdial.png">
 
 </p>
 
 See the [twitter feed](https://twitter.com/digitalurban/status/1429775146538184704) for the full clip or to view and interact with the 3D model, it is available on [Sketchfab](https://skfb.ly/ooRqt).
 
 
- ![Screen](https://github.com/ucl-casa-ce/WindSpeedGauge/blob/main/gaugeparts.png)
+ ![Screen](https://github.com/ucl-casa-ce/WindSpeedGauge/blob/main/imgs/gaugeparts.png)
