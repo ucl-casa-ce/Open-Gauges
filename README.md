@@ -52,7 +52,7 @@ As per below on a NodeMCU, also commented in the Arduino code - pins can be chan
  
 Note - The ServoEasing Library requires version 2.3.4
 
-# Augmented Reality / 3D Version
+# Augmented Reality Open Gauges
 
 Note this section is a work in progress, a Unity project file is incoming.
 
