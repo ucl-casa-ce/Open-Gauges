@@ -1,5 +1,5 @@
 # Open Gauges
-### Arduino Code, 3D printer files and Illustrator Templates for the Open Gauges project
+### Arduino Code, 3D printer files and Graphics Templates for the Open Gauges project
  ![Fusion Dial](https://github.com/ucl-casa-ce/Open-Gauges/blob/main/imgs/5DialsFrontsm.png)
  
 Run out the [Connected Environments Lab](https://connected-environments.org/) at [The Centre for Advanced Spatial Analysis](https://www.ucl.ac.uk/bartlett/casa), [University College London](https://www.ucl.ac.uk), the Open Gauges Project was initiated as part of the Module on Sensor Data Visualisation, part of the MSc in Connected Environments.
