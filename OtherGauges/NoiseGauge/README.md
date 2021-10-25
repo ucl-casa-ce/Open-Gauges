@@ -2,7 +2,7 @@
 
 ![Side Render](data/img/Render_FrontNoiseDial.jpg)
 
-### Data displayed
+## Data displayed
 
 The Noise Exposure Gauge is used to visualise the real-time noise exposure expressed as Sound Pressure Level, LAeq dB(A). The range of values spans from 30dB(A) to 130dB(A). Each section of the dial scale provides a generic reference sound source that could be likely to be heard in, or nearby, the office environment.
 
