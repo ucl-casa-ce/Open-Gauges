@@ -1,6 +1,6 @@
 # Noise Exposure Gauge
 
-![Side Render](/data/img/Render_FrontNoiseDial.jpg)
+![Side Render](data/img/Render_FrontNoiseDial.jpg)
 
 ### Data displayed
 
@@ -23,11 +23,11 @@ Sound Level Meter [_Wensn WS1361_ over MQTT](https://github.com/ucl-casa-ce/wens
 
 ### Code and library
 
-Using _ArduinoIDE_ 
-Board: _NodeMCU 1.0 (ESP 12E Module)_
-Code: [noiseGauge.ino](data/Arduino/noiseGauge.ino)
+Using [ArduinoIDE](https://www.arduino.cc/en/software)
+- Board: _NodeMCU 1.0 (ESP 12E Module)_
+- Code: [noiseGauge.ino](data/Arduino/noiseGauge.ino)
 
-**Libraries used**
+**Libraries and version used**
 
 - ServoEasing - version 2.3.4
 - PubSubClient - version 2.8.0
@@ -37,18 +37,18 @@ Code: [noiseGauge.ino](data/Arduino/noiseGauge.ino)
 ### 3D printing settings and parts:
 
 - Prusa MK3S - PLA - 0.2 mm Quality 15% infill
-    - 00_NoiseGauge_TopCover.stl
-    - 01_NoiseGauge_AcrylicHolder.stl
+    - [00_NoiseGauge_TopCover.stl](data/3dprinter/00_NoiseGauge_TopCover.stl)
+    - [01_NoiseGauge_AcrylicHolder.stl](data/3dprinter/01_NoiseGauge_AcrylicHolder.stl)
 - Prusa MK3S - PLA - 0.3 mm Draft 15% infill
-    - 04_NoiseGauge_GaugeBody_Lights.stl
-    - 08_NoiseGauge_GaugeStand.stl
+    - [04_NoiseGauge_GaugeBody_Lights.stl](data/3dprinter/04_NoiseGauge_GaugeBody_Lights.stl)
+    - [08_NoiseGauge_GaugeStand.stl](data/3dprinter/08_NoiseGauge_GaugeStand.stl)
 - Prusa MK3S - PLA Transparent - 0.1 mm 10% infill
-    - 03_NoiseGauge_DialGraph.stl
+    - [03_NoiseGauge_DialGraph.stl](data/3dprinter/03_NoiseGauge_DialGraph.stl)
 - Prusa MK3S - PLA - 0.05 mm 15% infill
-    - 02_NoiseGauge_DialGraphHolder.stl
-    - 05_NoiseGauge_Spur Gear (14 teeth).stl
-    - 06_NoiseGauge_Spur Gear (30 teeth).stl
-    - 07_NoiseGauge_Pointer.stl
+    - [02_NoiseGauge_DialGraphHolder.stl](data/3dprinter/02_NoiseGauge_DialGraphHolder.stl)
+    - [05_NoiseGauge_SpurGear-14teeth.stl](data/3dprinter/05_NoiseGauge_SpurGear-14teeth.stl)
+    - [06_NoiseGauge_SpurGear-30teeth.stl](data/3dprinter/06_NoiseGauge_SpurGear-30teeth.stl)
+    - [07_NoiseGauge_Pointer.stl](data/3dprinter/07_NoiseGauge_Pointer.stl)
 - Dial Graphic
     - [NoiseGauge_Dial.svg](data/3dprinter/NoiseGauge_Dial.svg)
 
