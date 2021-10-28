@@ -8,7 +8,7 @@ Incoming.. last edit 28th October 2021
 
 ## Data Source
 
-The barometer uses the Better Forecast API from [Weather Flow](https://weatherflow.github.io/Tempest/).
+The barometer uses the Better Forecast API from [Weather Flow](https://weatherflow.github.io/Tempest/), provided as JSON.
 
 ## Data displayed
 
@@ -39,11 +39,11 @@ The full code is provided in the tempestbarometer.py file, it requires an API an
 
 Libraries used - 
 
-requests
-json
-time
-neopixel
-board
+- requests
+- json
+- time
+- neopixel
+- board
 
 ## Digital model
 
