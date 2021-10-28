@@ -1,11 +1,14 @@
 # NeoPixel Barometer (Weather Flow Version)
 
-The Barometer has been largey unchanged since 
+The Barometer has been largey unchanged since.....
+
 Incoming.. last edit 28th October 2021
 
 <img align="right" src="https://i0.wp.com/connected-environments.org/wp-content/uploads/2021/10/neopixelbarolongright.png?">
 
 ## Data Source
+
+The barometer uses the Better Forecast API from [Weather Flow](https://weatherflow.github.io/Tempest/).
 
 ## Data displayed
 
@@ -41,8 +44,6 @@ json
 time
 neopixel
 board
-
-### 3D printing settings and parts:
 
 ## Digital model
 
