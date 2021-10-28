@@ -23,13 +23,27 @@ The
 
 ### Hardware
 
+The hardware has been selected to be as low cost as possible - 
+
 - A Raspberry Pi  - We used the Raspberry Pi Zero W
-- 1 Meter 144 Addressable Neopixel Strip (NeoPixel/WS2812/SK6812 compatible) - [eg](https://thepihut.com/products/flexible-rgb-led-strip-neopixel-ws2812-sk6812-compatible-144-led-meter)
+- 1 Meter 144 Addressable Neopixel Strip (NeoPixel/WS2812/SK6812 compatible) - [Example here from The PiHut](https://thepihut.com/products/flexible-rgb-led-strip-neopixel-ws2812-sk6812-compatible-144-led-meter)
 
 ### Code and library
 
+The full code is provided in the tempestbarometer.py file, it requires an API and Station key, see the [Weather Flow API page for details] (https://weatherflow.github.io/Tempest/api/).
+
 **Libraries and version used**
+
+Libraries used - 
+
+requests
+json
+time
+neopixel
+board
 
 ### 3D printing settings and parts:
 
 ## Digital model
+
+
