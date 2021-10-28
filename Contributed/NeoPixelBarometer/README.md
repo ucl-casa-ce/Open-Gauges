@@ -19,7 +19,7 @@ The data updates every minute.
 
 ## Wood
 
-The 
+The Neopixel strip is mounted onto a thin strip of wood approx 1.25 meters long using the fixings that come with the Neopixel Strip. The Text/Numbers are 3D printed (as above) and glued on the back of the wood. The use of wood/mounting is to allow flexibilty - ie mount it however you like. 
 
 ### Hardware
 
@@ -46,4 +46,4 @@ board
 
 ## Digital model
 
-
+The model is provided in Fusion 360 for any edits to wording, sizing etc.
