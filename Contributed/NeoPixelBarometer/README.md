@@ -30,7 +30,7 @@ An example of the 3D print sections are rendered at the bottom of this readme.
 
 ## Wood
 
-The Neopixel strip is mounted onto a thin strip of wood approx 1.25 meters long using the fixings that come with the Neopixel Strip. The Text/Numbers are 3D printed (as above) and glued on the back of the wood. The use of wood/mounting is to allow flexibilty - ie mount it however you like. 
+The Neopixel strip is mounted onto a thin strip of wood approx 125 centimeters long by 4.5 cm wide using the fixings that come with the Neopixel Strip. The Text/Numbers are 3D printed (as above) and glued on the back of the wood. It is a standard wood strip that most DIY/Hardware stores stock. The use of wood/mounting is to allow flexibilty - ie mount it however you like. 
 
 ### Hardware
 
