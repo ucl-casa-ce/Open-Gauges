@@ -2,7 +2,7 @@
 
 Incoming.. last edit 28th October 2021
 
-<img align="right" width="100" height="100" src="https://i0.wp.com/connected-environments.org/wp-content/uploads/2021/10/neopixelbarolongright.png?">
+<img align="right" src="https://i0.wp.com/connected-environments.org/wp-content/uploads/2021/10/neopixelbarolongright.png?">
 
 ## Data Source
 
