@@ -6,7 +6,7 @@ The Open Guages project aims to allow open-source data gauges to be built, modif
 
 Part of the initial release, from the Connected Environments Team at The Bartlett Centre for Advanced Spatial Analysis, University College London, and alongside the more traditional 'dial style' gauges, is our Neopixel Barometer.
 
-Designed to be as simple as possible it is powered by a Raspberry Pi and uses the data feed from the Weather Flow API, making it open to any users with a Weather Flow Tempest Weather Station. As with all Open Gauges, this feed can be changed for any other Weather data that includes Air Pressure, Conditions and Pressure Trend.
+Designed to be as simple as possible it is powered by a Raspberry Pi and uses the data feed from the Weather Flow API, making it open to any users with a Weather Flow Tempest Weather Station. As with all Open Gauges, the feed can be changed for any other data source, in this case, one that includes Air Pressure, Conditions and Pressure Trend.
 
 ## Data Source
 
