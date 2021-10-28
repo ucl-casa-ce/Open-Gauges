@@ -1,12 +1,12 @@
 # NeoPixel Barometer (Weather Flow Version)
 
+<img align="right" src="https://i0.wp.com/connected-environments.org/wp-content/uploads/2021/10/neopixelbarolongright.png?">
+
 The Open Guages project aims to allow open-source data gauges to be built, modified, and viewed as both physical (3d printed) and digital gauges. Depending on the user’s preference the models can be made to run from any online data source with a data feed - from Weather Data with Air Pressure, Temperature, Wind Speed etc though to Air Quality Gauges, Noise Meters, Energy etc.
 
 Part of the initial release, from the Connected Environments Team at The Bartlett Centre for Advanced Spatial Analysis, University College London, and alongside the more traditional 'dial style' gauges, is our Neopixel Barometer.
 
 Designed to be as simple as possible it is powered by a Raspberry Pi and uses the data feed from the Weather Flow API, making it open to any users with a Weather Flow Tempest Weather Station. As with all Open Gauges, this feed can be changed for any other Weather data that includes Air Pressure, Conditions and Pressure Trend.
-
-<img align="right" src="https://i0.wp.com/connected-environments.org/wp-content/uploads/2021/10/neopixelbarolongright.png?">
 
 ## Data Source
 
