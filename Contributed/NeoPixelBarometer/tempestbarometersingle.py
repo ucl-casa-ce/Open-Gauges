@@ -194,7 +194,7 @@ def iconpixel():
      pixels[27] = (OFF)    
 
     if icon == 'foggy':
-     pixels[25] = (FOGGY))
+     pixels[25] = (FOGGY)
     else:
      pixels[25] = (OFF)     
 
