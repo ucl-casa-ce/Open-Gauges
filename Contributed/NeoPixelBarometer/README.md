@@ -24,7 +24,7 @@ The main barometer markers - ie STORM, FAIR, CHANGE, as well as the numbers - 95
 
 <img align="left" src="https://connected-environments.org/wp-content/uploads/2021/10/neopixel3dprint.png">
 
-The conditions come in a left and right sections, again to be alighed once the Neopixel strip is mounted, the Trend titles are a single 3D print.
+The conditions come in a single section, again to be aligned once the Neopixel strip is mounted, the Trend titles are also a single 3D print.
 
 An example of the 3D print sections are rendered at the bottom of this readme.
 
