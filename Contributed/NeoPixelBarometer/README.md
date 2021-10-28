@@ -55,4 +55,4 @@ Libraries used -
 
 ## Digital model
 
-The model is provided in Fusion 360 for any edits to wording, sizing etc.
+The model is provided in Fusion 360 for any edits to wording, sizing etc (note the Pi is not included due to seperate licensing).
