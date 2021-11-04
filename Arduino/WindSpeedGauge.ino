@@ -29,7 +29,7 @@ int angle;
 
 // connect to wifi and mqtt server
 
-const char* ssid = "ByourwifiN";
+const char* ssid = "yourwifi";
 const char* password =  "wifipassword";
 const char* mqttServer = "mqttserver";
 const int mqttPort = mqttport;
@@ -108,7 +108,7 @@ void setup()
     if(client.connect("espWindSpeedLecture", mqttUser, mqttPassword)) 
 {
      Serial.println("connected");
-     client.publish("Devices/WindSpeedDialLecture/","Wind Speed Dial Lecture Connected");
+     
     }else{
       Serial.print("failed state ");
       Serial.print(client.state());
@@ -146,19 +146,24 @@ void reconnect() {
 
 
 
-void callback(char* topic, byte* payload, unsigned intlength)
-{
 
+void callback(const char* topic, byte* payload, unsigned int length) {
+  
+  Serial.print("Message arrived [");
+  Serial.print(topic);
+  Serial.print("] ");
+  for (int i=0;i<length;i++) {
+    Serial.print((char)payload[i]);
+   
+  }
+  
+  Serial.println();
 
-Serial.print("Message arrived in topic: ");
-
-
-// Convert the data to integer
-  int wind = atoi((char *)payload);
-
-
- // Map the data value to an angle - this value needs to be edited to calibrate your servo
- 
+//Convert payload to a string and then to an int to negate error reading bytes
+  
+  payload[length] = '\0';
+  String w = String((char*)payload);
+  int wind = w.toInt();
     
   angle = map(wind, 0, 60, 0, 127);
 
