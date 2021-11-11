@@ -156,6 +156,8 @@ void loop()
 {
  if (!client.connected()) {
     client.connect(" Nodevoltagewind", mqttUser, mqttPassword);
+// Edit According to your feed
+   
     client.subscribe("personal/ucfnaps/downhamweather/windSpeed_mph");
   }
 
