@@ -10,7 +10,7 @@ The project aims to allow open source data gauges to be built, modified, and vie
 
 It is requested that new Guages created - either via additions to the Arduino Code or via new Graphics file are added as new branches, creating a repository of both physical and digital gauges. Notable new additions will be featured in this main thread.
 
-A total of 5 Dial Graphics are provided in this initial release - sized to fit into the 3D printed cases. 
+A total of 5 Dial Graphics were provided in this initial release - sized to fit into the 3D printed cases. The collection now (11th November 2021) includes a [Noise Gauge](https://github.com/ucl-casa-ce/Open-Gauges/tree/main/Contributed/NoiseGauge), Energy Gauge, [Neopixel Barometer](https://connected-environments.org/open-gauges/neopixel-barometer/) and a [Voltmeter Gage](https://connected-environments.org/making/open-gauges-the-voltmeter-gauge/).
 
 <p align="center">
 <img src="https://github.com/ucl-casa-ce/Open-Gauges/blob/main/Graphics%20Files/initialdials.png">
