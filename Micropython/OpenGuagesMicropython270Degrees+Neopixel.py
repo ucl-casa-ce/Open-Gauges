@@ -151,15 +151,12 @@ def sub_cb(topic, msg, retained):
            # servo(datalist[0])
                 sleep(1)
         
-        
-     #   if datalist[0] == datalist[-1]:
-           # servo(datalist[0])
-      #      sleep(2)
-            
-        if len(datalist) > 600:
+   # Trim List at 1200  - Edit to preference
+   
+        if len(datalist) > 1200:
             print ("Trimming List")
        
-            del datalist[600]      
+            del datalist[1199]      
             
    
       
