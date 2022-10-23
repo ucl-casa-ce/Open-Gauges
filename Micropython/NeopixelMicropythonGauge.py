@@ -222,7 +222,7 @@ async def timer():
 
 # If you connect with clean_session True, must re-subscribe (MQTT spec 3.1.2.4)
 async def conn_han(client):
-    await client.subscribe('EDITtoAddYourMQTTFeed', 1)
+    await client.subscribe('personal/ucfnaps/downhamweather/windSpeed_mph', 1)
 
 async def main(client):
     try:
