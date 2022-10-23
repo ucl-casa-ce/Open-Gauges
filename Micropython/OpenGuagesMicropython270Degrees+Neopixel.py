@@ -20,6 +20,10 @@ import uasyncio as asyncio
 import machine
 from machine import Pin, PWM
 from time import sleep
+from time import gmtime
+#from time import gmtime
+
+
 
 # Set up Servo and Data Range
 servoPin = PWM(Pin(16))
@@ -95,19 +99,27 @@ def lights():
     pixels.fill(WHITE)
     pixels.show()   
 
+def timer():
+    # Set Up Time
+    detailed_time = gmtime() 
+    mins = detailed_time[4]
+
+    print("Minutes: ", mins)
+    if mins == 59:
+        machine.reset()
 
 
 # Subscription callback
 def sub_cb(topic, msg, retained):
     print(f'Topic: "{topic.decode()}" Message: "{msg.decode()}" Retained: {retained}')
-   
+    
     mqttdata = float(msg)
     print("Wind Speed =  ", mqttdata)
     degrees = mqttdata*datatodegrees
     print("Degrees Turned = ", datatodegrees)
     sleep(servospeed)
     datalist.append(degrees)
-    datapixel = (int(datalist[0]/pixelcal))+1
+    datapixel = (int(datalist[0]/pixelcal))
     print ("Datapixel = ", datapixel)
     
     
@@ -148,16 +160,16 @@ def sub_cb(topic, msg, retained):
             datalist[0] = (datalist[0])+1
             
             if datalist[0] == datalist[-1]:
-           # servo(datalist[0])
-                sleep(1)
-        
-   # Trim List at 1200  - Edit to preference
-   
-        if len(datalist) > 1200:
+                 sleep(2)
+          
+    
+            
+        if len(datalist) > 600:
             print ("Trimming List")
        
-            del datalist[1199]      
-            
+            del datalist[600]      
+        
+        timer()
    
       
 #Read and Show Max Data Value - ie Max Wind Gust, Edit out if not required
@@ -197,6 +209,7 @@ async def main(client):
         await client.connect()
     except OSError:
         print('Connection failed.')
+        machine.reset()
         return
     n = 0
     while True:
@@ -218,8 +231,10 @@ client = MQTTClient(config)
 
 asyncio.create_task(heartbeat())
 
+
 try:
     asyncio.run(main(client))
+    
 
 finally:
     client.close()  # Prevent LmacRxBlk:1 errors
