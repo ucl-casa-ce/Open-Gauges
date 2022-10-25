@@ -52,6 +52,10 @@ As per below on a NodeMCU, also commented in the Arduino code - pins can be chan
  
 Note - The ServoEasing Library requires version 2.3.4
 
+Newly added (Oct 2022) Micropython version uses a Raspberry Pi Pico W with a Neopixel strip and SG90 servo:
+
+![parts](https://github.com/ucl-casa-ce/Open-Gauges/blob/main/imgs/micropygauge2022.png)
+
 # Augmented Reality Open Gauges
 
 Note this section is a work in progress, a Unity project file is incoming.
