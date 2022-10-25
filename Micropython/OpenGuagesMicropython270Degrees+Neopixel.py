@@ -101,11 +101,12 @@ def lights():
 
 def timer():
     # Set Up Time
-    detailed_time = gmtime() 
+    detailed_time = gmtime()
     mins = detailed_time[4]
 
     print("Minutes: ", mins)
     if mins == 59:
+        sleep(50)
         machine.reset()
 
 
@@ -197,7 +198,7 @@ async def wifi_han(state):
     wifi_led(not state)
     print('Wifi is ', 'up' if state else 'down')
     lights()
-    sweep()
+   # sweep()
     await asyncio.sleep(1)
 
 # If you connect with clean_session True, must re-subscribe (MQTT spec 3.1.2.4)
