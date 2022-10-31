@@ -176,6 +176,7 @@ def sub_cb(topic, msg, retained):
 #Read and Show Max Data Value - ie Max Wind Gust, Edit out if not required
             
     datamax = int(max(datalist)/pixelcal)
+    pixels.fill(WHITE)
     pixels [datamax] = (RED)
     print ("Maximum Gust =  ", datamax)
     pixels.show()
