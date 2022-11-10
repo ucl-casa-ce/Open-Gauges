@@ -5,8 +5,8 @@ from machine import Pin, PWM
 import urequests
 from time import sleep
 
-ssid = 'Your SSID'
-password = 'Your PASSWORD'
+ssid = 'YourSSID'
+password = 'YourPassword'
 
 global baro
 global servodegrees
@@ -34,13 +34,13 @@ def connect():
         time.sleep(1)
 
 # Handle connection error
-if wlan.status() != 3:
-    raise RuntimeError('network connection failed')
-    connect()
-else:
-    print('connected')
-    status = wlan.ifconfig()
-    print( 'ip = ' + status[0] )
+    if wlan.status() != 3:
+        raise RuntimeError('network connection failed')
+        connect()
+    else:
+        print('connected')
+        status = wlan.ifconfig()
+        print( 'ip = ' + status[0] )
     
 ##
     
@@ -53,26 +53,28 @@ def get_conditions():
    
     print ("Getting Data from Open Weather Map")
 
-    api_key = "Yours API KEY"
-    lat = "Your Lat"
-    lon = "Your Long"
+    api_key = "YourAPI"
+    lat = "YourLat"
+    lon = "YourLond"
     url = "https://api.openweathermap.org/data/2.5/onecall?lat=%s&lon=%s&appid=%s&units=metric" % (lat, lon, api_key)
     response = urequests.get(url)
     data = response.json()
     baro = int(data ["current"]["pressure"])
     print("Current Pressure = ", baro)
-    
+   
+  
+
 
 def translate():
     global baro
     global servodegrees
     
-    # Set Data Range to Remap
+        # Set Data Range to Remap
 
     leftMin = 950
     leftMax = 1050
     rightMin = 0
-    rightMax = servorange
+    rightMax = 25
     #Calculate Range
     leftSpan = leftMax - leftMin
     rightSpan = rightMax - rightMin
@@ -122,10 +124,10 @@ def moveservo():
     global baro
     global servodegrees
 
-#run the data through the translate function to remap range  
+#Run the data through the translate function to remap range  
     translate()
     servo(servodegrees)
-    print("Moving Servo, ", servodegrees, " Degrees")
+    print("Moving Servo to", servodegrees, " Degrees")
     sleep(1)
  
 while True:
