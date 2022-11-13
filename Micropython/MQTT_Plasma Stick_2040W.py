@@ -13,17 +13,17 @@ NUM_LEDS = 60
 
 BRIGHTNESS = 1.0
 
-MQTT_Topic = "YOURMQTT_Topic - ie /windspeed"
+MQTT_Topic = "windSpeed_mph" #Edit for Your Own Feed
 
 # The range of readings that we want to map to colours
 
 MIN = 0
-MAX = 40
+MAX = 6
 
 # pick what bits of the colour wheel to use (from 0-360°)
 # https://www.cssscript.com/demo/hsv-hsl-color-wheel-picker-reinvented/
 
-HUE_START = 230  # blue
+HUE_START = 0  # blue
 HUE_END = 359  # red
 
 # WS2812 / NeoPixel™ LEDs  - Note - Order may need editing accoring to your LED - ie GRB, RGB etc
@@ -43,7 +43,7 @@ def sub_cb(topic, msg, retained):
     
 
     # calculates a colour
-    hue = HUE_START + ((mqttdata - MIN) * (HUE_END - HUE_START) / (MAX - MIN))
+    hue = HUE_START + ((mqttdata - MAX) * (HUE_END - HUE_START) / (MIN - MAX))
 
     # set the leds
     for i in range(NUM_LEDS):
