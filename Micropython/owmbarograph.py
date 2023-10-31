@@ -5,10 +5,13 @@ from machine import Pin, PWM
 import urequests
 from time import sleep
 
-ssid = 'YourSSID'
-password = 'YourPassword'
+ssid = 'BTWholeHome-JCN'
+password = 'SaladinHouse11'
 
 global baro
+
+servospeed = 0.05 #Speed of the servo movement - 0.05 provides a good smooth speed
+servorange = 155 #Edit for range of servo - 116 equates to approx 270 degrees with Open Gauges Gear Ratio
 global servodegrees
 
 
@@ -16,11 +19,14 @@ global servodegrees
 servoPin = PWM(Pin(16))
 servoPin.freq(50)
 
-servorange = 25
+servorange = 155
 
 
 wlan = network.WLAN(network.STA_IF)
 wlan.active(True)
+
+# First Sweep - Degree Range to be Edited According to Servo and Gear Ratio
+
 
 def connect():
     wlan.connect(ssid, password)
@@ -53,13 +59,14 @@ def get_conditions():
    
     print ("Getting Data from Open Weather Map")
 
-    api_key = "YourAPI"
-    lat = "YourLat"
-    lon = "YourLon"
+    api_key = "6780e0309ba92c7198d1b73d9babf89f"
+    lat = "52.629238"
+    lon = "0.492520"
     url = "https://api.openweathermap.org/data/2.5/onecall?lat=%s&lon=%s&appid=%s&units=metric" % (lat, lon, api_key)
     response = urequests.get(url)
     data = response.json()
-    baro = int(data ["current"]["pressure"])
+    print(data)
+    baro = int(data ["current"]["weather"][0]["id"])
     print("Current Pressure = ", baro)
    
   
@@ -131,6 +138,9 @@ def moveservo():
     sleep(1)
  
 while True:
+    connect()
+    sweep()
+
     get_conditions()
     moveservo()
     print("Waiting for next data request - Set for every 15 mins")
