@@ -59,7 +59,7 @@ def get_conditions():
    
     print ("Getting Data from Open Weather Map")
 
-    api_key = "6780e0309ba92c7198d1b73d9babf89f"
+    api_key = "YourKey"
     lat = "52.629238"
     lon = "0.492520"
     url = "https://api.openweathermap.org/data/2.5/onecall?lat=%s&lon=%s&appid=%s&units=metric" % (lat, lon, api_key)
