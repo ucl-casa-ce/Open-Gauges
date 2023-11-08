@@ -16,6 +16,7 @@ A lightsaber offers an excellent medium for light diffusion, making it perfect f
 - 144 WS2812b NeoPixel strip
 - Pi PicoW, specifically the Plasma Stick 2040W PicoW Aboard by Pimoroni
 - 3D printed top and bottom end mounts (Files available in the 3D Files Folder)
+- 3D printed markers - 5 to 55mph and beaufort wind scale text
 
 
 ## NeoPixels
@@ -32,37 +33,10 @@ The code maps wind speeds to colors on the LED strip:
 - 30 to 40: ORANGE (Strong winds)
 - Above 40: RED (Gale Force and above)
 
-## Code Overview
+## Overview
 
-The project uses the NeoPixel library and MQTT protocol for real-time data streaming. All necessary files are included in the [GitHub Repository](<link-to-github-repo>).
+The project uses the NeoPixel library  and MQTT protocol for real-time data streaming.
 
-### Set Up NeoPixel Strip
-
-```python
-from neopixel import Neopixel
-numpix = 144
-pixels = Neopixel(numpix, 0, 15, "GRB")
-pixels.brightness(255)
-
-colors = {
-    'BLUE': (0, 0, 255),
-    'GREEN': (0, 255, 0),
-    ...
-}
-
-### Wind Speed Ranges and Colors
-
-WIND_SPEED_RANGE = [0, 60]
-multiplier = numpix / (WIND_SPEED_RANGE[1] - WIND_SPEED_RANGE[0])
-
-###Dynamic Updates and Tracking Peak Wind Speed
-The script updates the display dynamically, showing the peak wind speed with a distinct RED pixel.
-
-###MQTT and NeoPixel Lightsaber
-The MQTT protocol streams data to the lightsaber, which then updates the display.
-
-###Full Code
-The full code is available in the Micropyton Folder.
 
 Contributions
 Contributions are welcome! Please fork the repository and submit a pull request with your improvements.
@@ -71,7 +45,8 @@ License
 This project is licensed under the MIT License - see the LICENSE.md file for details.
 
 Acknowledgements
-The Saber Armory for hardware components
-Pimoroni for the Plasma Stick 2040W PicoW Aboard
-
+[The Saber Armory](https://thesaberarmory.com/collections/neopixels-led-strips) for hardware components
+[Pimoroni for the Plasma Stick 2040W PicoW Aboard](https://shop.pimoroni.com/products/plasma-stick-2040-w?variant=40359072301139) 
+[Neopixel Micropython Library](https://github.com/blaz-r/pi_pico_neopixel?ref=bhave.sh)
+[MQTT_as Library](https://github.com/peterhinch/micropython-mqtt) 
 All contributors to the Open Gauges Project
