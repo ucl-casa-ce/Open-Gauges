@@ -19,7 +19,7 @@ Adafruit_NeoPixel strip(LED_COUNT, LED_PIN,  NEO_RGBW + NEO_KHZ800); //edit RGB 
 // 180 degree servo, an SG90S is recomended. Example code is for Wind Speed
 // using a Wind Speed mqtt feed.
 // It uses the 2:14 gear train set up in the Connected Environments Workshop
-// The code can bbe adaopted for other servo types/timezones and data feeds
+// The code can be adaopted for other servo types and data feeds
 
 
 // Set Servo to the Servo Easing Library
