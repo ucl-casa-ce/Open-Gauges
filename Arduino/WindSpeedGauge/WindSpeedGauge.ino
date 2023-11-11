@@ -15,11 +15,11 @@
 
 
 Adafruit_NeoPixel strip(LED_COUNT, LED_PIN,  NEO_RGB + NEO_KHZ800); //edit RGB / RGBW according to Pixel Strip Type
-// Script turns on and off at set times and makes use of 2 LEDs and
-// 180 degree servo, an SG90 is recomended. Example code is for a Windvane
-// using a Wind Speed mqtt feed.
-// It uses the 2:14 gear train set up in the Connected Environments Workshop
-// The code can bbe adaopted for other servo types/timezones and data feeds
+
+// 180 degree servo, an SG90MG is recomended. Example code is for WindSpeed
+// using an mqtt feed.
+// It uses the 2:14 gear train
+// The code can bbe adaopted for other servo types
 
 
 // Set Servo to the Servo Easing Library
@@ -36,8 +36,8 @@ int pixel;
 
 // connect to wifi and mqtt server
 
-const char* ssid = "YourWifi";
-const char* password =  "WifiPassword";
+const char* ssid = "YourWIFI";
+const char* password =  "YourWIFI Password";
 const char* mqttServer = "mqtt.cetools.org";  //Edit this for your own MQTT or leave for the CE Wind Speed Feed
 const int mqttPort = 1883;
 
@@ -65,9 +65,9 @@ void setup()
   servo.write(3); 
   servo.attach(4);
 
-// Servo Sweep - Edit for own Servo/Dial Range
-  servo.setEasingType(EASE_CUBIC_IN_OUT);
-  servo.setSpeed(20);
+// Servo Sweep - Useful for Calibration - Edit for own Servo/Dial Range
+  servo.setEasingType(EASE_LINEAR);
+  servo.setSpeed(15);
   Serial.print("Moving to 0");
   servo.easeTo(10);
   
@@ -162,16 +162,23 @@ void callback(const char* topic, byte* payload, unsigned int length) {
   angle = map(wind, 0, 40, 10, 140);
 
  
-  
-  servo.setEasingType(EASE_CUBIC_IN_OUT);
-  servo.setSpeed(15);
-//servo.write(angle);
+  // Calculate the difference in angle
+  int angleDifference = abs(servo.read() - angle);
+
+  // Adjust speed and easing type based on the angle difference
+  if (angleDifference < 10) {
+    servo.setSpeed(5); // Slower for small changes
+    servo.setEasingType(EASE_LINEAR); // Linear easing for smoother small movements
+  } else {
+    servo.setSpeed(10); // Faster for larger changes
+    servo.setEasingType(EASE_CUBIC_IN_OUT); // Cubic easing for larger movements
+  }
+
+  // Move servo to the new position
   servo.easeTo(angle);
   Serial.print("Wind Speed ");
   Serial.println(wind);
-  delay(500);   // Allow transit time
-  
- 
+  delay(500); // Allow transit time
 }
 
 void loop()
