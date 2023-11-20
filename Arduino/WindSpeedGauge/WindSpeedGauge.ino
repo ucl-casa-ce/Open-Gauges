@@ -37,7 +37,7 @@ int pixel;
 // connect to wifi and mqtt server
 
 const char* ssid = "YourWIFI";
-const char* password =  "YourWIFI Password";
+const char* password =  "WIFIPassword";
 const char* mqttServer = "mqtt.cetools.org";  //Edit this for your own MQTT or leave for the CE Wind Speed Feed
 const int mqttPort = 1883;
 
