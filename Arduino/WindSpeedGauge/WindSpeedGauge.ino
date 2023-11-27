@@ -36,8 +36,8 @@ int pixel;
 
 // connect to wifi and mqtt server
 
-const char* ssid = "YourWIFI";
-const char* password =  "WIFIPassword";
+const char* ssid = "BTWholeHome-JCN";
+const char* password =  "SaladinHouse11";
 const char* mqttServer = "mqtt.cetools.org";  //Edit this for your own MQTT or leave for the CE Wind Speed Feed
 const int mqttPort = 1883;
 
@@ -159,7 +159,7 @@ void callback(const char* topic, byte* payload, unsigned int length) {
   int wind = w.toInt();
   
   // Edit the range to match your own servo configeration  
-  angle = map(wind, 0, 40, 10, 140);
+  angle = map(wind, 0, 20, 10, 140);
 
  
   // Calculate the difference in angle
