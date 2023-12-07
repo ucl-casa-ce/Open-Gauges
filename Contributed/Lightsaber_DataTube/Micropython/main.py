@@ -37,12 +37,12 @@ def set_pixel_color(wind, max_wind):
 
     while prev_wind < wind:
         update_pixels(prev_wind)
-        time.sleep(0.05)
+        time.sleep(0.1)
         prev_wind += 1
 
     while prev_wind > wind:
         update_pixels(prev_wind)
-        time.sleep(0.05)
+        time.sleep(0.1)
         prev_wind -= 1
 
     pixels[max_wind] = colors['RED']  # Update max_wind pixel
