@@ -74,7 +74,7 @@ def sub_cb(topic, msg, retained):
     global max_wind, prev_max_wind
 
     print(f'Topic: "{topic.decode()}" Message: "{msg.decode()}" Retained: {retained}')
-    wind_speed = int(msg)
+    wind_speed = float(msg)
 
     if WIND_SPEED_RANGE[0] <= wind_speed <= WIND_SPEED_RANGE[1]:
         wind = (wind_speed - WIND_SPEED_RANGE[0]) * multiplier
