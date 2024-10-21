@@ -14,7 +14,7 @@
 #define LED_PIN 5
 
 
-Adafruit_NeoPixel strip(LED_COUNT, LED_PIN,  NEO_RGB + NEO_KHZ800); //edit RGB / RGBW according to Pixel Strip Type
+Adafruit_NeoPixel strip(LED_COUNT, LED_PIN,  NEO_RGB + NEO_KHZ800); //edit RGB / GRB / RGBW according to Pixel Strip Type
 
 // 180 degree servo, an SG90MG is recomended. Example code is for WindSpeed
 // using an mqtt feed.
@@ -73,12 +73,13 @@ void setup()
   
   delay (1000);
   Serial.print("Moving to 270");
-  servo.easeTo(140);
+  servo.easeTo(140); // Edit Values to Match Your Servo
  
   delay (1000);
   
   Serial.print("Moving to 0");
-  servo.easeTo(10);
+  servo.easeTo(10);  // Edit Values to Match Your Servo
+ 
   Serial.print("Pausing for 5 seconds");
   delay (5000);
 
@@ -159,7 +160,8 @@ void callback(const char* topic, byte* payload, unsigned int length) {
   int wind = w.toInt();
   
   // Edit the range to match your own servo configeration  
-  angle = map(wind, 0, 20, 10, 140);
+  angle = map(wind, 0, 40, 10, 140);   // Edit Values to Match Your Data Values and Servo Range
+ 
 
  
   // Calculate the difference in angle
