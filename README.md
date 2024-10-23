@@ -48,7 +48,7 @@ The main parts are:
 
 As per below on a NodeMCU, also commented in the Arduino code - pins can be changed according to your own board.
 
- ![Screen](https://github.com/ucl-casa-ce/WindSpeedGauge/blob/main/imgs/GaugewithLEDS.png)
+ ![Screen](https://github.com/ucl-casa-ce/Open-Gauges/blob/main/imgs/servoneopixelnode.jpg)
  
 Note - The ServoEasing Library requires version 2.3.4
 
