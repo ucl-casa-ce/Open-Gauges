@@ -8,7 +8,7 @@ This project is an alternative to the main servo-based gauge in the root of the 
 
 This design uses a stepper motor (like the 28BYJ-48) which offers high-precision, 360-degree movement without the jitter or limited range of a standard servo. The limit switch allows the gauge to "home" itself on startup, ensuring the needle always starts at a known zero position.
 
-!(https://github.com/ucl-casa-ce/Open-Gauges/blob/main/Contributed/StepperGauge/Steppergauge1.png)
+![Stepper Gauge](https://github.com/ucl-casa-ce/Open-Gauges/blob/main/Contributed/StepperGauge/Steppergauge1.png)
 
 To ensure accuracy, this project uses a **two-step calibration process**:
 1.  First, you run the **`DefineDistance.ino`** sketch to find the exact number of steps your gauge's needle needs to travel from zero to its maximum position.
@@ -53,7 +53,7 @@ You must wire the components correctly for the calibration and main sketches to 
     * `GND` connects to Ground.
     * `Data In (DI)` connects to a single Arduino digital pin (e.g., D6).
 
-![Internals - Stepper Gauge on a breadboard](!(https://github.com/ucl-casa-ce/Open-Gauges/blob/main/Contributed/StepperGauge/stepperinsides.png))
+![Internals] - Stepper Gauge on a breadboard](!(https://github.com/ucl-casa-ce/Open-Gauges/blob/main/Contributed/StepperGauge/stepperinsides.png))
 
 ## How to Use: Calibration & Setup
 
