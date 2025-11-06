@@ -53,7 +53,11 @@ You must wire the components correctly for the calibration and main sketches to 
     * `GND` connects to Ground.
     * `Data In (DI)` connects to a single Arduino digital pin (e.g., D6).
 
-![Internals - Stepper Gauge on a breadboard](https://github.com/ucl-casa-ce/Open-Gauges/blob/main/Contributed/StepperGauge/stepperinsides.jpg)
+<p align="center">
+  <img src="https://raw.githubusercontent.com/ucl-casa-ce/Open-Gauges/main/Contributed/StepperGauge/stepperinsides.jpg" 
+       alt="Internals - Stepper Gauge on a breadboard" 
+       width="500">
+</p>
 
 ## How to Use: Calibration & Setup
 
