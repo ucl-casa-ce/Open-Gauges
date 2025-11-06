@@ -1,6 +1,6 @@
 # NeoPixel Barometer (Weather Flow Version)
 
-<img align="right" src="https://i0.wp.com/connected-environments.org/wp-content/uploads/2021/10/neopixelbarolongright.png?">
+<img align="right" src="https://connected-environments.org/assets/img/blog/202205-owm-barometer/Owmbaroplain-79x1024.png">
 
 The Open Guages project aims to allow open-source data gauges to be built, modified, and viewed as both physical (3d printed) and digital gauges. Depending on the user’s preference the models can be made to run from any online data source with a data feed - from Weather Data with Air Pressure, Temperature, Wind Speed etc though to Air Quality Gauges, Noise Meters, Energy etc.
 
