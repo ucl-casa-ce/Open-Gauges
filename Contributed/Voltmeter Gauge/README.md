@@ -4,11 +4,11 @@ The voltmeter gauge has a 5V range and runs from an Arduino Uno Wifi rev 2 as it
 
 Most Arduino boards only output 3V, in which case the code can be simply edited to use a 3V Voltmeter. The voltmeter has a loading sweep on power-up and then connects to wifi and an MQTT data feed, in our case a feed from our weather station with wind speed updated every 3 seconds.
 
-![Voltmeter Gauge](https://connected-environments.org/wp-content/uploads/2021/11/front-scaled.jpg) 
+![Voltmeter Gauge](https://connected-environments.org/assets/img/blog/202111-voltmeter-gauge/leftsidesm.png) 
 
 Included in the folders are the Arudino code, STL file to print, Fusion 360 to edit/adapt the enclosure and an illustator template to edit to your own data/values.
 
-See [the Voltmeter Gauge Page over at Connected Environments](https://connected-environments.org/?p=6286&preview=true) for further details.
+See [the Voltmeter Gauge Page over at Connected Environments](https://connected-environments.org/blog/2021-11-11-open-gauges-the-voltmeter-gauge/) for further details.
 
 
 
