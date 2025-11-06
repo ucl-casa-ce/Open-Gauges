@@ -2,7 +2,7 @@
 
 This folder contains a contributed version of the Open Gauge that uses a **stepper motor** for precise needle movement, a **limit switch** for automatic calibration, and a **NeoPixel** for advanced lighting.
 
-This project is an alternative to the main servo-based gauge in the root of the `Open-Gauges` repository.
+This project is an alternative to the main servo-based gauge in the root of the `Open-Gauges` repository. Seperate files to 3D print are provided in the STL folder.
 
 ## Overview
 
