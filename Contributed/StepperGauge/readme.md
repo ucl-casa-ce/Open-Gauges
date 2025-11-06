@@ -31,6 +31,16 @@ This project includes two Arduino sketches:
 1.  **`DefineDistance.ino`**: You run this sketch **first**. It helps you find the total number of steps from the "home" position (at the limit switch) to the maximum position you want your gauge to travel.
 2.  **`StepperGauge.ino`**: This is the **main operational code** for the gauge. It requires the calibration value from the first sketch to work correctly.
 
+   <p align="center">
+  <a href="https://youtu.be/qg42hw0rflw" target="_blank">
+    <img src="https://img.youtube.com/vi/qg42hw0rflw/hqdefault.jpg" 
+         alt="Stepper Motor Wind Speed Data Gauge" 
+         width="500">
+  </a>
+  <br>
+  <em>Stepper Motor Wind Speed Data Gauge</em>
+</p>
+
 ### Required Libraries
 
 You must install the following libraries in your Arduino IDE for both sketches:
