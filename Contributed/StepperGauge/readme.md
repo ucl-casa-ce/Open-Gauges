@@ -19,7 +19,7 @@ This design uses a stepper motor (like the 28BYJ-48) which offers high-precision
 </p>
 
 To ensure accuracy, this project uses a **two-step calibration process**:
-1.  First, you run the **`DefineDistance.ino`** sketch to find the exact number of steps your gauge's needle needs to travel from zero to its maximum position.
+1.  First, you run the **`DefineDistance.ino`** sketch to find the exact number of steps your gauge's needle needs to travel from zero to its maximum position. Start with small numbers and then build up as you see how far it moves - move it to the maximum extent of your dial (ie 60 mph).
 2.  Second, you update the main **`StepperGauge.ino`** code with this number.
 
 ## Hardware Components
