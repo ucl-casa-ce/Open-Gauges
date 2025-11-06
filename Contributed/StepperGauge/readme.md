@@ -8,10 +8,18 @@ This project is an alternative to the main servo-based gauge in the root of the 
 
 This design uses a stepper motor (like the 28BYJ-48) which offers high-precision, 360-degree movement without the jitter or limited range of a standard servo. The limit switch allows the gauge to "home" itself on startup, ensuring the needle always starts at a known zero position.
 
-![Stepper Gauge](https://github.com/ucl-casa-ce/Open-Gauges/blob/main/Contributed/StepperGauge/Steppergauge1.png)
+ <p align="center">
+  <a href="https://youtu.be/qg42hw0rflw" target="_blank">
+    <img src="https://img.youtube.com/vi/qg42hw0rflw/hqdefault.jpg" 
+         alt="Stepper Motor Wind Speed Data Gauge" 
+         width="800">
+  </a>
+  <br>
+  <em>Stepper Motor Wind Speed Data Gauge</em>
+</p>
 
 To ensure accuracy, this project uses a **two-step calibration process**:
-1.  First, you run the **`DefineDistance.ino`** sketch to find the exact number of steps your gauge's needle needs to travel from zero to its maximum position.
+1.  First, you run the **`DefineDistance.ino`** sketch to find the exact number of steps your gauge's needle needs to travel from zero to its maximum position. Start with small numbers and then build up as you see how far it moves - move it to the maximum extent of your dial (ie 60 mph).
 2.  Second, you update the main **`StepperGauge.ino`** code with this number.
 
 ## Hardware Components
@@ -30,6 +38,7 @@ This project includes two Arduino sketches:
 
 1.  **`DefineDistance.ino`**: You run this sketch **first**. It helps you find the total number of steps from the "home" position (at the limit switch) to the maximum position you want your gauge to travel.
 2.  **`StepperGauge.ino`**: This is the **main operational code** for the gauge. It requires the calibration value from the first sketch to work correctly.
+
 
 ### Required Libraries
 
