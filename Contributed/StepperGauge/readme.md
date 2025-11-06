@@ -2,7 +2,7 @@
 
 This folder contains a contributed version of the Open Gauge that uses a **stepper motor** for precise needle movement, a **limit switch** for automatic calibration, and a **NeoPixel** for advanced lighting.
 
-This project is an alternative to the main servo-based gauge in the root of the `Open-Gauges` repository.
+This project is an alternative to the main servo-based gauge in the root of the `Open-Gauges` repository. Seperate files to 3D print are provided in the STL folder.
 
 ## Overview
 
@@ -53,7 +53,11 @@ You must wire the components correctly for the calibration and main sketches to 
     * `GND` connects to Ground.
     * `Data In (DI)` connects to a single Arduino digital pin (e.g., D6).
 
-![Internals - Stepper Gauge on a breadboard](https://github.com/ucl-casa-ce/Open-Gauges/blob/main/Contributed/StepperGauge/stepperinsides.jpg)
+<p align="center">
+  <img src="https://raw.githubusercontent.com/ucl-casa-ce/Open-Gauges/main/Contributed/StepperGauge/stepperinsides.jpg" 
+       alt="Internals - Stepper Gauge on a breadboard" 
+       width="500">
+</p>
 
 ## How to Use: Calibration & Setup
 
