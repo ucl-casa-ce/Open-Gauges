@@ -1,6 +1,6 @@
 # NeoPixel Lightsaber Data Tube - Wind Meter
 
-![Lightsaber Data Tube](https://connected-environments.org/wp-content/uploads/2023/10/LightSaberTitle-1024x497.jpg)
+![https://connected-environments.org/assets/img/blog/202311-lightsaber/LightSaberTitle-1024x497.jpg)
 
 Harness the power of the Force to visualize real-time data with a NeoPixel Lightsaber! This project uses a lightsaber tube filled with LEDs to create a dynamic display of wind speeds. It's part of the Open Gauges Project, providing open-source code and 3D print files for various data gauges.
 
@@ -8,7 +8,7 @@ Harness the power of the Force to visualize real-time data with a NeoPixel Light
 
 A lightsaber offers an excellent medium for light diffusion, making it perfect for a uniform and visually appealing data display. A full guide to the build can be found in the accompanying [blog post](https://connected-environments.org/making/lightsaber/) over at Connected Environments.
 
-![Fusion360](https://connected-environments.org/wp-content/uploads/2023/11/WindNeoPixelLightSaberTube_2023-Nov-08_03-20-52PM-000_CustomizedView14012120140.png)
+![Fusion360](https://connected-environments.org/assets/img/blog/202311-lightsaber/Screenshot-2023-11-03-at-11.11.46-1024x258.png)
 
 ## Hardware Components
 
