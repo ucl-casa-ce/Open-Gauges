@@ -4,7 +4,7 @@ This MicroPython project turns a strip of NeoPixel LEDs into a “ship's lamp" s
 
 The light simulates an oil lamp by staying "steady" for a random period and then "flickering" for a short time by rapidly dimming and brightening.
 
-![MQTT Ships Lamp](https://github.com/ucl-casa-ce/Open-Gauges/blob/main/Contributed/ShipsLamp/shipslamp.jpeg)
+![MQTT Ships Lamp](https://github.com/ucl-casa-ce/Open-Gauges/raw/main/Contributed/ShipsLamp/shipslamp.jpeg)
 
 ## Features
 
@@ -26,9 +26,9 @@ The light simulates an oil lamp by staying "steady" for a random period and then
 
 * **Realistic Flicker Effect:** The light doesn't just stay solid; it cycles between a "steady" phase (10-60s) and a "flicker" phase (5-15s) to simulate a real lamp.
 
-* **Asynchronous:** Built using `uasyncio` and `mqtt_as` for robust, non-blocking operation.
+* **Asynchronous & Resilient:** Built using `uasyncio` and `mqtt_as`. The `mqtt_as` library automatically handles and recovers from WiFi or MQTT broker disconnections, re-subscribing to topics as needed.
 
-* **Watchdog:** Includes a 60-minute timer that reboots the device to ensure long-term stability.
+* **Hardware Watchdog:** Uses the Pico's built-in `machine.WDT` (Watchdog Timer) to automatically reboot the device *only* if the main code loop freezes, ensuring high reliability. (This replaces the old 60-minute timer).
 
 * **Status LEDs:** Provides a heartbeat flash on one LED and a WiFi status indicator on another.
 
@@ -36,7 +36,7 @@ The light simulates an oil lamp by staying "steady" for a random period and then
 
 * **Raspberry Pi Pico W:** (or any Pico with a WiFi-capable board).
 
-* **NeoPixel LED Strip:** The code is configured for a strip, but can be any WS2812B/NeoPixel compatible LEDs.
+* **NeoPixel LED Strip:** The code is configured for a strip, but can be any WS812B/NeoPixel compatible LEDs.
 
 * **Power Supply:** A sufficient power supply for your LED strip (a strip of 60 LEDs can draw several amps at full brightness).
 
@@ -54,7 +54,7 @@ This project relies on a few key MicroPython libraries that you must have on you
 
 1. **`neopixel.py`:** The standard Adafruit NeoPixel library for MicroPython.
 
-2. **`mqtt_as.py`:** A robust, asynchronous MQTT client. You can find it [here](https://www.google.com/search?q=https://github.com/peterhinch/micropython-mqtt/blob/master/mqtt_as/mqtt_as.py).
+2. **`mqtt_as.py`:** A robust, asynchronous MQTT client. You can find it [here](https://github.com/peterhinch/micropython-mqtt/blob/master/mqtt_as/mqtt_as.py).
 
 3. **`config.py`:** A file you must create to hold your credentials and pin definitions.
 
@@ -92,21 +92,24 @@ config['client_id'] = 'pico_ships_lamp' # Or any unique ID
 
 # --- Other Hardware ---
 # This is for the heartbeat LED
+
+## Running the Project
+
+1.  Upload `main.py`, `neopixel.py`, `mqtt_as.py`, and your `config.py` to your Raspberry Pi Pico.
+
+2.  Reset the device.
+
+3.  The device will automatically connect to your WiFi and MQTT broker.
+
+4.  It will subscribe to the topic `personal/ucfnaps/downhamweather/windSpeed_mph`.
+
+5.  As messages are published to that topic, the ship's lamp will spring to life!
+
+## Customizing
+
+* **LED Count:** Change the `numpix` variable at the top of `main.py` to match your strip.
+
+* **Data Pin:** Change the `15` in `pixels = Neopixel(numpix, 0, 15, "GRB")` to match your data pin.
+
+* **MQTT Topic:** Change the a topic name in the `conn_han` function to subscribe to your own data source.
 blue_led = Pin(10, Pin.OUT) # Example: an external LED on GP10
-Running the Project
-Upload main.py, neopixel.py, mqtt_as.py, and your config.py to your Raspberry Pi Pico.
-
-Reset the device.
-
-The device will automatically connect to your WiFi and MQTT broker.
-
-It will subscribe to the topic personal/ucfnaps/downhamweather/windSpeed_mph.
-
-As messages are published to that topic, the ship's lamp will spring to life!
-
-Customizing
-LED Count: Change the numpix variable at the top of main.py to match your strip.
-
-Data Pin: Change the 15 in pixels = Neopixel(numpix, 0, 15, "GRB") to match your data pin.
-
-MQTT Topic: Change the a topic name in the conn_han function to subscribe to your own data source.
