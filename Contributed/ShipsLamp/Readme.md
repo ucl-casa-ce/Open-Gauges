@@ -90,8 +90,7 @@ config['client_id'] = 'pico_ships_lamp' # Or any unique ID
 # config['user'] = 'YOUR_MQTT_USER'
 # config['password'] = 'YOUR_MQTT_PASSWORD'
 
-# --- Other Hardware ---
-# This is for the heartbeat LED
+```
 
 ## Running the Project
 
