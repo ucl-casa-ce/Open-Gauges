@@ -24,7 +24,6 @@ The light simulates an oil lamp by staying "steady" for a random period and then
 
   * **40+ mph:** Solid Red
 
-* 
 * **Realistic Flicker Effect:** The light doesn't just stay solid; it cycles between a "steady" phase (10-60s) and a "flicker" phase (5-15s) to simulate a real lamp.
 
 * **Asynchronous:** Built using `uasyncio` and `mqtt_as` for robust, non-blocking operation.
