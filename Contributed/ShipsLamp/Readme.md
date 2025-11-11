@@ -4,7 +4,7 @@ This MicroPython project turns a strip of NeoPixel LEDs into a “ship's lamp" s
 
 The light simulates an oil lamp by staying "steady" for a random period and then "flickering" for a short time by rapidly dimming and brightening.
 
-![MQTT Ships Lamp](https://connected-environments.org/wp-content/uploads/2022/11/IMG_1495-scaled.jpeg)
+![MQTT Ships Lamp](https://github.com/ucl-casa-ce/Open-Gauges/blob/main/Contributed/ShipsLamp/shipslamp.jpeg)
 
 ## Features
 
