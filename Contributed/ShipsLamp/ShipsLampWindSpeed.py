@@ -13,6 +13,7 @@ OFF = (0, 0, 0)
 pixels.brightness(100)
 target_color = OFF  # Renamed from current_color
 display_color = OFF # This is the color currently on the LEDs
+global_wind_speed = 0.0 # NEW: Stores the last known wind speed for dynamic effects
 
 # --- NEW: Helper function for smooth fading ---
 def lerp(a, b, t):
@@ -110,10 +111,26 @@ async def flicker_loop():
     """
     This task runs to generate one "flicker"
     """
-    global display_color, target_color
+    global display_color, target_color, global_wind_speed
     
     base_color = target_color # Flicker around the *target*
-    reduction = random.randint(40, 120)
+    
+    # --- DYNAMIC FLICKER ---
+    # Make flicker intensity based on wind speed.
+    # We map wind speed (0-40mph) to a max flicker dimming (80-160).
+    # Low wind (0mph) = gentle flicker (dimming 40-80)
+    # High wind (40mph) = wild flicker (dimming 40-160)
+    
+    # 1. Normalize wind speed to a 0.0 - 1.0 fraction
+    t_wind = min(global_wind_speed, 40.0) / 40.0
+    
+    # 2. Lerp the max dimming amount based on the wind fraction
+    max_reduction = int(lerp(80, 160, t_wind))
+    
+    # 3. Get the final random dimming amount
+    reduction = random.randint(40, max_reduction)
+    # --- END DYNAMIC FLICKER ---
+
     scale = max(0, (255 - reduction)) / 255.0
     r = int(base_color[0] * scale)
     g = int(base_color[1] * scale)
@@ -156,11 +173,12 @@ async def pixel_controller():
 
 # --- MQTT Callback ---
 def sub_cb(topic, msg, retained):
-    global target_color # Renamed from current_color
+    global target_color, global_wind_speed # Added global_wind_speed
     print(f'Topic: "{topic.decode()}" Message: "{msg.decode()}" Retained: {retained}')
     try:
         wind = float(msg)
         print(wind)
+        global_wind_speed = wind # Store the latest speed for the flicker effect
         target_color = blend_color(wind) # Set the target
     except ValueError:
         print("Received non-float message")
@@ -186,6 +204,35 @@ async def wifi_han(state):
 
 # --- MQTT Connection Handler ---
 async def conn_han(client):
+    
+    # --- STARTUP PULSE ---
+    # Run a visual "pulse" to show we are connected
+    # and ready to receive data.
+    print("MQTT Connected! Running startup pulse...")
+    global display_color
+    
+    # 1. Fade up to White
+    for i in range(100):
+        c = int(255 * (i / 100.0))
+        display_color = (c, c, c)
+        pixels.fill(display_color)
+        pixels.show()
+        await asyncio.sleep_ms(10) # 1-second fade up
+        
+    # 2. Fade down to OFF
+    for i in range(100):
+        c = int(255 * (1.0 - (i / 100.0)))
+        display_color = (c, c, c)
+        pixels.fill(display_color)
+        pixels.show()
+        await asyncio.sleep_ms(10) # 1-second fade down
+    
+    display_color = OFF
+    pixels.fill(display_color)
+    pixels.show()
+    # --- END STARTUP PULSE ---
+    
+    print("Subscribing to topic...")
     await client.subscribe('personal/ucfnaps/downhamweather/windSpeed_mph', 1)
 
 # --- Main MQTT Loop ---
