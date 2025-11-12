@@ -11,16 +11,20 @@ numpix = 60
 pixels = Neopixel(numpix, 0, 15, "GRB")
 OFF = (0, 0, 0)
 pixels.brightness(100)
-target_color = OFF  # Renamed from current_color
+target_color = OFF  # The color we are fading TOWARDS
 display_color = OFF # This is the color currently on the LEDs
-global_wind_speed = 0.0 # NEW: Stores the last known wind speed for dynamic effects
+global_wind_speed = 0.0 # Stores the last known wind speed for dynamic effects
 
-# --- NEW: Helper function for smooth fading ---
+# --- NEW: Set initial state to CONNECTING_WIFI ---
+# This ensures the pixel_controller gives immediate feedback on boot.
+global_system_status = "CONNECTING_WIFI" 
+
+# --- Helper function for smooth fading ---
 def lerp(a, b, t):
     """Linearly interpolate from a to b by fraction t"""
     return a + (b - a) * t
 
-# --- NEW: Fully Continuous Color Blending Function ---
+# --- Fully Continuous Color Blending Function ---
 def blend_color(wind_speed):
     """
     Calculates a single, continuous gradient across 4 segments:
@@ -38,46 +42,40 @@ def blend_color(wind_speed):
 
     # --- Segment 1 (0-10 mph): OFF (0,0,0) -> Green (0,255,0) ---
     if wind_speed < 10:
-        # 't' is the fraction of how far through this 10mph segment we are
-        # e.g., 5mph -> t = 0.5
         t = wind_speed / 10.0 
         r = 0
-        g = int(255 * t)  # Green fades in from 0 to 255
+        g = int(255 * t)
         b = 0
         return (r, g, b)
 
     # --- Segment 2 (10-20 mph): Green (0,255,0) -> Yellow (255,255,0) ---
     if wind_speed < 20:
-        # 't' is the fraction from 10 to 20
-        # e.g., 15mph -> (15-10)/10 -> t = 0.5
         t = (wind_speed - 10) / 10.0 
-        r = int(255 * t)     # Red fades in from 0 to 255
-        g = 255              # Green stays full
+        r = int(255 * t)
+        g = 255
         b = 0
         return (r, g, b)
 
     # --- Segment 3 (20-30 mph): Yellow (255,255,0) -> Orange (255,127,0) ---
     if wind_speed < 30:
-        t = (wind_speed - 20) / 10.0 # e.g., 25mph -> t = 0.5
+        t = (wind_speed - 20) / 10.0
         inv_t = 1.0 - t
-        r = 255 # Red stays full
-        # Green fades from 255 (Yellow) down to 127 (Orange)
+        r = 255
         g = int(255 * inv_t + 127 * t) 
         b = 0
         return (r, g, b)
 
     # --- Segment 4 (30-40 mph): Orange (255,127,0) -> Red (255,0,0) ---
-    else: # This catches 30 <= wind_speed < 40
-        t = (wind_speed - 30) / 10.0 # e.g., 35mph -> t = 0.5
+    else: # 30 <= wind_speed < 40
+        t = (wind_speed - 30) / 10.0
         inv_t = 1.0 - t
-        r = 255 # Red stays full
-        # Green fades from 127 (Orange) down to 0 (Red)
+        r = 255
         g = int(127 * inv_t) 
         b = 0
         return (r, g, b)
 
 
-# --- Combined Flame Effect Task (REFACTORED) ---
+# --- Asynchronous Pixel Control Tasks ---
 
 async def steady_fade_loop():
     """
@@ -89,12 +87,10 @@ async def steady_fade_loop():
     UPDATE_SLEEP_MS = 20
 
     if display_color != target_color:
-        # Calculate the new interpolated color
         r = int(lerp(display_color[0], target_color[0], FADE_RATE))
         g = int(lerp(display_color[1], target_color[1], FADE_RATE))
         b = int(lerp(display_color[2], target_color[2], FADE_RATE))
 
-        # Check if we're "close enough" and snap to the final color
         if (abs(r - target_color[0]) < 2 and
             abs(g - target_color[1]) < 2 and
             abs(b - target_color[2]) < 2):
@@ -113,49 +109,85 @@ async def flicker_loop():
     """
     global display_color, target_color, global_wind_speed
     
-    base_color = target_color # Flicker around the *target*
-    
-    # --- DYNAMIC FLICKER ---
-    # Make flicker intensity based on wind speed.
-    # We map wind speed (0-40mph) to a max flicker dimming (80-160).
-    # Low wind (0mph) = gentle flicker (dimming 40-80)
-    # High wind (40mph) = wild flicker (dimming 40-160)
-    
-    # 1. Normalize wind speed to a 0.0 - 1.0 fraction
+    base_color = target_color 
     t_wind = min(global_wind_speed, 40.0) / 40.0
-    
-    # 2. Lerp the max dimming amount based on the wind fraction
     max_reduction = int(lerp(80, 160, t_wind))
-    
-    # 3. Get the final random dimming amount
     reduction = random.randint(40, max_reduction)
-    # --- END DYNAMIC FLICKER ---
 
     scale = max(0, (255 - reduction)) / 255.0
     r = int(base_color[0] * scale)
     g = int(base_color[1] * scale)
     b = int(base_color[2] * scale)
     
-    display_color = (r, g, b) # Store this flicker color
+    display_color = (r, g, b)
     pixels.fill(display_color)
     pixels.show()
     
-    await asyncio.sleep_ms(random.randint(50, 150)) # Flicker sleep
+    await asyncio.sleep_ms(random.randint(50, 150))
 
 async def pixel_controller():
     """
-    This is the main state manager, replacing flame_effect.
+    This is the main state manager.
     It decides *when* to fade and *when* to flicker.
+    It also handles the startup visual feedback.
     """
-    global display_color, target_color
+    global display_color, target_color, global_system_status
+
+    # --- STARTUP DISPLAY LOOP ---
+    CONNECTING_COLOR = (0, 0, 100) # Dim Blue
+    
+    print("Pixel controller started, awaiting connection...")
+    while global_system_status != "RUNNING":
+        if global_system_status == "CONNECTING_WIFI":
+            # --- NEW: Pulse Blue for WiFi ---
+            # 1. Fade up to Blue
+            for i in range(100):
+                # If state changes mid-pulse, break out early
+                if global_system_status != "CONNECTING_WIFI": break
+                t = i / 100.0
+                c = int(CONNECTING_COLOR[2] * t)
+                display_color = (0, 0, c)
+                pixels.fill(display_color)
+                pixels.show()
+                await asyncio.sleep_ms(10) # 1s fade up
+
+            # 2. Fade down to OFF
+            for i in range(100):
+                if global_system_status != "CONNECTING_WIFI": break
+                t = 1.0 - (i / 100.0)
+                c = int(CONNECTING_COLOR[2] * t)
+                display_color = (0, 0, c)
+                pixels.fill(display_color)
+                pixels.show()
+                await asyncio.sleep_ms(10) # 1s fade down
+            
+            # Short pause at the bottom of the pulse
+            await asyncio.sleep_ms(200)
+
+        elif global_system_status == "CONNECTING_MQTT":
+            # Solid blue to show WiFi is connected, now doing MQTT
+            display_color = CONNECTING_COLOR
+            pixels.fill(display_color)
+            pixels.show()
+            await asyncio.sleep_ms(200) # Sleep to allow other tasks
+        
+        else:
+            # Should not happen, but a fallback
+            print(f"Unknown system status: {global_system_status}")
+            await asyncio.sleep_ms(100)
+            
+    print("Pixel controller switching to main flame effect loop.")
+    # --- END STARTUP LOOP ---
+
+
+    # --- MAIN FLAME EFFECT LOOP ---
     while True:
         # --- STEADY/FADE PHASE ---
-        # Run the fade loop for a random steady duration
         steady_time_ms = random.randint(10000, 60000)
         start_time = time.ticks_ms()
         
         while time.ticks_diff(time.ticks_ms(), start_time) < steady_time_ms:
-            await steady_fade_loop() # This loop now handles fading
+            await steady_fade_loop() 
 
         # --- FLICKER PHASE ---
         if target_color != OFF:
@@ -165,32 +197,32 @@ async def pixel_controller():
             while time.ticks_diff(time.ticks_ms(), start_time) < flicker_duration_ms:
                 await flicker_loop()
                 
-            # After flickering, snap back to the target color
-            # to prepare for the next fade/steady phase.
             display_color = target_color
             pixels.fill(display_color)
             pixels.show()
 
 # --- MQTT Callback ---
 def sub_cb(topic, msg, retained):
-    global target_color, global_wind_speed # Added global_wind_speed
+    """Called when a subscribed topic receives a message."""
+    global target_color, global_wind_speed
     print(f'Topic: "{topic.decode()}" Message: "{msg.decode()}" Retained: {retained}')
     try:
         wind = float(msg)
-        print(wind)
-        global_wind_speed = wind # Store the latest speed for the flicker effect
-        target_color = blend_color(wind) # Set the target
+        print(f"Wind speed: {wind} mph")
+        global_wind_speed = wind
+        target_color = blend_color(wind)
     except ValueError:
         print("Received non-float message")
 
 # --- Heartbeat Task (WITH WATCHDOG) ---
 async def heartbeat():
-    # Set up the hardware WatchDog Timer with an 8-second timeout
+    """
+    Blinks the blue LED and feeds the hardware watchdog.
+    If this task freezes, the watchdog will reboot the Pico.
+    """
     wdt = machine.WDT(timeout=8000)
-    
     s = True
     while True:
-        # Feed the watchdog to let it know the code is still running
         wdt.feed()
         await asyncio.sleep_ms(500)
         blue_led(s)
@@ -198,18 +230,25 @@ async def heartbeat():
 
 # --- WiFi Handler ---
 async def wifi_han(state):
-    wifi_led(not state)
-    print('Wifi is ', 'up' if state else 'down')
+    """Controls the onboard WiFi LED and updates the system status."""
+    global global_system_status
+    wifi_led(not state) 
+    
+    if state:
+        print('Wifi is up.')
+        global_system_status = "CONNECTING_MQTT"
+    else:
+        print('Wifi is down. Re-connecting...')
+        global_system_status = "CONNECTING_WIFI"
     await asyncio.sleep(1)
 
 # --- MQTT Connection Handler ---
 async def conn_han(client):
+    """Runs once the MQTT broker is successfully connected."""
     
     # --- STARTUP PULSE ---
-    # Run a visual "pulse" to show we are connected
-    # and ready to receive data.
     print("MQTT Connected! Running startup pulse...")
-    global display_color
+    global display_color, global_system_status
     
     # 1. Fade up to White
     for i in range(100):
@@ -217,7 +256,7 @@ async def conn_han(client):
         display_color = (c, c, c)
         pixels.fill(display_color)
         pixels.show()
-        await asyncio.sleep_ms(10) # 1-second fade up
+        await asyncio.sleep_ms(10)
         
     # 2. Fade down to OFF
     for i in range(100):
@@ -225,7 +264,7 @@ async def conn_han(client):
         display_color = (c, c, c)
         pixels.fill(display_color)
         pixels.show()
-        await asyncio.sleep_ms(10) # 1-second fade down
+        await asyncio.sleep_ms(10)
     
     display_color = OFF
     pixels.fill(display_color)
@@ -234,9 +273,13 @@ async def conn_han(client):
     
     print("Subscribing to topic...")
     await client.subscribe('personal/ucfnaps/downhamweather/windSpeed_mph', 1)
+    
+    print("System is RUNNING.")
+    global_system_status = "RUNNING"
 
 # --- Main MQTT Loop ---
 async def main(client):
+    """Main MQTT client loop."""
     try:
         await client.connect()
     except OSError:
@@ -245,17 +288,18 @@ async def main(client):
     n = 0
     while True:
         await asyncio.sleep(5)
-        print('publish', n)
+        print('MQTT main loop running...', n)
         n += 1
 
 # --- Main Task Manager ---
 async def main_manager(client):
+    """Starts and manages all asynchronous tasks."""
     tasks = [
         asyncio.create_task(heartbeat()),
-        asyncio.create_task(pixel_controller()) # Renamed from flame_effect
+        asyncio.create_task(pixel_controller())
     ]
     try:
-        await main(client)
+        await main(client) # This task handles MQTT
     finally:
         for task in tasks:
             task.cancel()
