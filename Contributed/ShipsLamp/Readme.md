@@ -48,6 +48,8 @@ The light simulates an oil lamp by staying "steady" for a random period and then
 
 * **WiFi LED:** `wifi_led` (defined in `config.py`).
 
+![MQTT Ships Lamp Large](https://github.com/ucl-casa-ce/Open-Gauges/blob/main/Contributed/ShipsLamp/shipslamp2025.jpeg)  
+
 ## Software & Dependencies
 
 This project relies on a few key MicroPython libraries that you must have on your Pico:
