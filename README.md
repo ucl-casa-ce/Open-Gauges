@@ -37,21 +37,3 @@ See comments in the .ino file for set up and calibration details - in the above 
 
 The gauges are made to be as simple as possible to make but allow enough flexibilty to allow them to be used to display a wide range of data types.
 
-
-# Augmented Reality Open Gauges
-
-Note this section is a work in progress.
-
- ![Screen](https://github.com/ucl-casa-ce/WindSpeedGauge/blob/main/imgs/blenderstart.png)
-
-The Fusion 360 file can be exported into a variety of formats for import into systems such as Sketchfab, Blender and Unity - via the Unity engine it can be developed into an Augmented Reality version.
-
-<p align="center">
-<img src="https://github.com/ucl-casa-ce/WindSpeedGauge/blob/main/imgs/ARdial.png">
-
-</p>
-
-See the [twitter feed](https://twitter.com/digitalurban/status/1429775146538184704) for the full clip or to view and interact with the 3D model, it is available on [Sketchfab](https://skfb.ly/ooRqt).
-
-
- ![Screen](https://github.com/ucl-casa-ce/WindSpeedGauge/blob/main/imgs/gaugeparts.png)
