@@ -2,7 +2,7 @@
 
 This folder contains a contributed version of the Open Gauge that uses a **stepper motor** for precise needle movement, and a **limit switch** for automatic calibration - the gauge uses a timer belt and a 3D printed pointer to indicate wind speed, it can be adapted to any MQTT data feed.
 
-<img src="https://github.com/ucl-casa-ce/Open-Gauges/blob/main/Contributed/Linear%20Stepper%20Gauge/WindStepperLinear.jpeg" align="right" width="25%">
+<img src="https://github.com/ucl-casa-ce/Open-Gauges/blob/main/Contributed/Linear%20Stepper%20Gauge/WindStepperLinear.png" align="right" width="25%">
 </p> 
 
 ## Overview
