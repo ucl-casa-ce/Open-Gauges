@@ -1,22 +1,13 @@
-# Stepper Gauge
+# Linear Stepper Gauge
 
-This folder contains a contributed version of the Open Gauge that uses a **stepper motor** for precise needle movement, a **limit switch** for automatic calibration, and a **NeoPixel** for advanced lighting.
+This folder contains a contributed version of the Open Gauge that uses a **stepper motor** for precise needle movement, and a **limit switch** for automatic calibration - the gauge uses a timer belt and a 3D printed pointer to indicate wind speed, it can be adapted to any MQTT data feed.
 
-This project is an alternative to the main servo-based gauge in the root of the `Open-Gauges` repository. Seperate files to 3D print are provided in the STL folder.
+<img src="https://github.com/ucl-casa-ce/Open-Gauges/blob/main/Contributed/Linear%20Stepper%20Gauge/WindStepperLinear.jpeg" align="right" width="25%">
+</p> 
 
 ## Overview
 
-This design uses a stepper motor (like the 28BYJ-48) which offers high-precision, 360-degree movement without the jitter or limited range of a standard servo. The limit switch allows the gauge to "home" itself on startup, ensuring the needle always starts at a known zero position.
-
- <p align="center">
-  <a href="https://youtu.be/qg42hw0rflw" target="_blank">
-    <img src="https://img.youtube.com/vi/qg42hw0rflw/hqdefault.jpg" 
-         alt="Stepper Motor Wind Speed Data Gauge" 
-         width="800">
-  </a>
-  <br>
-  <em>Stepper Motor Wind Speed Data Gauge</em>
-</p>
+This design uses a stepper motor (like the 28BYJ-48) which offers high-precision, 360-degree movement without the jitter or limited range of a standard servo. The limit switch allows the gauge to "home" itself on startup, ensuring the pointer always starts at a known zero position.
 
 To ensure accuracy, this project uses a **two-step calibration process**:
 1.  First, you run the **`DefineDistance.ino`** sketch to find the exact number of steps your gauge's needle needs to travel from zero to its maximum position. Start with small numbers and then build up as you see how far it moves - move it to the maximum extent of your dial (ie 60 mph).
@@ -27,9 +18,8 @@ To ensure accuracy, this project uses a **two-step calibration process**:
 * **Arduino-compatible Board:** Any board like an Arduino Uno, Nano, or a NodeMCU.
 * **Stepper Motor:** 28BYJ-48 5V stepper motor.
 * **Stepper Driver:** ULN2003 driver board (which often comes with the 28BYJ-48).
-* **Limit Switch:** A small microswitch to detect the needle's zero position.
-* **NeoPixel:** A single WS2812B LED (or a small strip) for illumination.
-* **Power Supply:** 5V power supply.
+* **Limit Switch:** A small microswitch to detect the pointers zero position.
+* **Power Supply:** USB.
 * **Connecting Wires**
 
 ## Software & Code
@@ -62,15 +52,9 @@ You must wire the components correctly for the calibration and main sketches to 
     * `GND` connects to Ground.
     * `Data In (DI)` connects to a single Arduino digital pin (e.g., D6).
 
-<p align="center">
-  <img src="https://raw.githubusercontent.com/ucl-casa-ce/Open-Gauges/main/Contributed/StepperGauge/stepperinsides.jpg" 
-       alt="Internals - Stepper Gauge on a breadboard" 
-       width="500">
-</p>
 
 ## How to Use: Calibration & Setup
 
-Follow these steps carefully to get your gauge running.
 
 ### Step 1: Assemble Hardware
 Assemble the 3D-printed gauge and wire all the components as described in the **Wiring** section. Ensure the limit switch is placed so the needle will press it at the desired "zero" position.
