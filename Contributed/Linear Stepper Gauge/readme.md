@@ -9,9 +9,7 @@ This folder contains a contributed version of the Open Gauge that uses a **stepp
 
 This design uses a stepper motor (like the 28BYJ-48) which offers high-precision, 360-degree movement without the jitter or limited range of a standard servo. The limit switch allows the gauge to "home" itself on startup, ensuring the pointer always starts at a known zero position.
 
-To ensure accuracy, this project uses a **two-step calibration process**:
-1.  First, you run the **`DefineDistance.ino`** sketch to find the exact number of steps your gauge's needle needs to travel from zero to its maximum position. Start with small numbers and then build up as you see how far it moves - move it to the maximum extent of your dial (ie 60 mph).
-2.  Second, you update the main **`StepperGauge.ino`** code with this number.
+The main **`WindStepperTimerBeltwithLimitSwitch.ino`** has a distance calibration number, adjust for your range.
 
 ## Hardware Components
 
@@ -20,22 +18,16 @@ To ensure accuracy, this project uses a **two-step calibration process**:
 * **Stepper Driver:** ULN2003 driver board (which often comes with the 28BYJ-48).
 * **Limit Switch:** A small microswitch to detect the pointers zero position.
 * **Power Supply:** USB.
-* **Connecting Wires**
+* **Timer Belt** [GT2 Timer Belt - ie](https://www.amazon.co.uk/Timing-Pulley-Tensioner-Torsion-Printer/dp/B0C54ZXM88/ref=sxin_15_pa_sp_search_thematic_sspa?content-id=amzn1.sym.0a6bbb1a-ed2d-4392-adfc-40ed1cfcd8e2%3Aamzn1.sym.0a6bbb1a-ed2d-4392-adfc-40ed1cfcd8e2&crid=L07UDXXKCZFX&cv_ct_cx=timing%2Bbelt%2Bgt2&keywords=timing%2Bbelt%2Bgt2&pd_rd_i=B0C54ZXM88&pd_rd_r=12141bbe-35d0-4c0a-8811-d7f399206de4&pd_rd_w=AVwDb&pd_rd_wg=JG5Mx&pf_rd_p=0a6bbb1a-ed2d-4392-adfc-40ed1cfcd8e2&pf_rd_r=H6T6R7VAGD99FGNPH875&qid=1763028887&sbo=RZvfv%2F%2FHxDF%2BO5021pAnSA%3D%3D&sprefix=timer%2Bbelt%2Bgt2%2Caps%2C99&sr=1-5-ad3222ed-9545-4dc8-8dd8-6b2cb5278509-spons&aref=vwr3X339Nm&sp_csd=d2lkZ2V0TmFtZT1zcF9zZWFyY2hfdGhlbWF0aWM&th=1)
 
-## Software & Code
-
-This project includes two Arduino sketches:
-
-1.  **`DefineDistance.ino`**: You run this sketch **first**. It helps you find the total number of steps from the "home" position (at the limit switch) to the maximum position you want your gauge to travel.
-2.  **`StepperGauge.ino`**: This is the **main operational code** for the gauge. It requires the calibration value from the first sketch to work correctly.
-
+<img src="https://github.com/ucl-casa-ce/Open-Gauges/blob/main/Contributed/Linear%20Stepper%20Gauge/timerbelt.jpg" align="centre" width="20%">
 
 ### Required Libraries
 
-You must install the following libraries in your Arduino IDE for both sketches:
+Requires the following libraries in your Arduino IDE for both sketches:
 
 * **`AccelStepper`**: For advanced stepper motor control.
-* **`Adafruit_NeoPixel`**: To control the NeoPixel LED.
+* 
 
 ## Wiring
 
@@ -43,42 +35,11 @@ You must wire the components correctly for the calibration and main sketches to 
 
 * **Stepper Driver:**
     * `IN1`, `IN2`, `IN3`, `IN4` on the ULN2003 board connect to four digital pins on the Arduino (check the code for exact pins).
-    * `+` and `-` on the driver board connect to your 5V power supply and Ground.
+    * `+` and `-` on the driver board connect to your Ground.
 * **Limit Switch:**
     * One pin connects to an Arduino digital pin (e.g., D5).
     * The other pin connects to Ground (GND). The code will use the Arduino's internal `INPUT_PULLUP` resistor.
-* **NeoPixel:**
-    * `5V` connects to the 5V power supply.
-    * `GND` connects to Ground.
-    * `Data In (DI)` connects to a single Arduino digital pin (e.g., D6).
+      
+## 3D Printing
 
-
-## How to Use: Calibration & Setup
-
-
-### Step 1: Assemble Hardware
-Assemble the 3D-printed gauge and wire all the components as described in the **Wiring** section. Ensure the limit switch is placed so the needle will press it at the desired "zero" position.
-
-### Step 2: Run Calibration Sketch
-This is the most important step for accuracy.
-
-1.  Open the **`DefineDistance.ino`** sketch in your Arduino IDE.
-2.  Verify the pin definitions at the top of the code match your wiring.
-3.  Upload the sketch to your Arduino board.
-4.  Open the **Serial Monitor** (set to 9600 baud).
-5.  The sketch will first "home" the gauge by moving the needle until it hits the limit switch.
-6.  It will then likely ask you to send commands via the Serial Monitor (e.g., 'f' for forward, 'b' for back) to manually move the needle.
-7.  Move the needle to the **maximum position** you want for your gauge dial.
-8.  The sketch will report the total number of steps from home to this max position. **Write this number down.**
-
-### Step 3: Configure Main Sketch
-Now you will update the main gauge code with your calibration value.
-
-1.  Open the **`StepperGauge.ino`** sketch in the Arduino IDE.
-2.  Near the top of the code, find a variable named something like `MAX_STEPS` or `fullScaleSteps`.
-3.  Change the value of this variable to the **number you wrote down** from Step 2.
-4.  Configure the rest of the sketch as needed (e.g., WiFi/MQTT credentials).
-
-### Step 4: Upload and Run
-1.  Upload the modified `StepperGauge.ino` to your Arduino.
-2.  Power the project. The gauge will automatically home itself and is now calibrated and ready to display data.
+The stl folder contains the mount for the stepper motor, the pointer (which also joins together the timing belt) the limit switch and the end mount for the pulley. 
