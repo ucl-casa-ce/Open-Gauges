@@ -12,9 +12,6 @@ It is requested that new Guages created - either via additions to the Arduino Co
 
 A total of 5 Dial Graphics were provided in the initial release - sized to fit into the 3D printed cases. The collection now (6th November 2025) includes an additional [Noise Gauge](https://github.com/ucl-casa-ce/Open-Gauges/tree/main/Contributed/NoiseGauge), [Neopixel Barometer](https://connected-environments.org/open-gauges/neopixel-barometer/) a [Voltmeter Gauge](https://connected-environments.org/making/open-gauges-the-voltmeter-gauge/), [Light Saber Data Tube](https://github.com/ucl-casa-ce/Open-Gauges/tree/main/Contributed/Lightsaber_DataTube), [Ships Lamp Gauge](https://github.com/ucl-casa-ce/Open-Gauges/blob/main/Contributed/ShipsLamp/Readme.md), and the most recent [Stepper Motor Data Gauage](https://github.com/ucl-casa-ce/Open-Gauges/blob/main/Contributed/StepperGauge/).
 
-<p align="right">
-<img src="https://github.com/ucl-casa-ce/Open-Gauges/blob/main/Contributed/Linear%20Stepper%20Gauge/WindStepperLinear.jpeg" width="400">
-</p> 
 
 <p align="center">
 <img src="https://github.com/ucl-casa-ce/Open-Gauges/blob/main/Graphics%20Files/initialdials.png">
