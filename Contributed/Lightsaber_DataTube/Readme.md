@@ -8,7 +8,7 @@ Harness the power of the Force to visualize real-time data with a NeoPixel Light
 
 A lightsaber offers an excellent medium for light diffusion, making it perfect for a uniform and visually appealing data display. A full guide to the build can be found in the accompanying [blog post](https://connected-environments.org/making/lightsaber/) over at Connected Environments.
 
-![Fusion360](https://connected-environments.org/assets/img/blog/202311-lightsaber/Screenshot-2023-11-03-at-11.11.46-1024x258.png)
+<img src="https://connected-environments.org/assets/img/blog/202311-lightsaber/lightsabervertical-151x1024.png" align="right" width="25%">
 
 ## Hardware Components
 
