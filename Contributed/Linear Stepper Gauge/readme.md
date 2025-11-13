@@ -1,6 +1,6 @@
 # Linear Stepper Gauge
 
-This folder contains a contributed version of the Open Gauge that uses a **stepper motor** for precise needle movement, and a **limit switch** for automatic calibration - the gauge uses a timer belt and a 3D printed pointer to indicate wind speed, it can be adapted to any MQTT data feed and any base mount. The example shown uses a 5cm by 10cm peice of wood, cut to 1 metre length.
+The Linear Data Guages uses a **stepper motor** for precise needle movement, and a **limit switch** for automatic calibration - the gauge uses a timer belt and a 3D printed pointer to indicate wind speed, it can be adapted to any MQTT data feed and any base mount. The example shown uses a 5cm by 10cm peice of wood, cut to 1 metre length.
 
 <img src="https://github.com/ucl-casa-ce/Open-Gauges/blob/main/Contributed/Linear%20Stepper%20Gauge/WindStepperLinear.png" align="right" width="25%">
 
@@ -30,8 +30,6 @@ Requires the following libraries in your Arduino IDE for both sketches:
 * 
 
 ## Wiring
-
-You must wire the components correctly for the calibration and main sketches to work.
 
 * **Stepper Driver:**
     * `IN1`, `IN2`, `IN3`, `IN4` on the ULN2003 board connect to four digital pins on the Arduino (check the code for exact pins).
