@@ -37,33 +37,10 @@ See comments in the .ino file for set up and calibration details - in the above 
 
 The gauges are made to be as simple as possible to make but allow enough flexibilty to allow them to be used to display a wide range of data types.
 
-## Parts List
-
-The main parts are:
-
-* _Node MCU Arduino Board_ - we have been using the ([MakerHawk boards](https://www.amazon.co.uk/MakerHawk-Internet-Development-Wireless-Micropython/dp/B07M8Q38LK/ref=sr_1_4?dchild=1&keywords=nodemcu&qid=1634650644&sr=8-4)). However, any Arduino compatiable board will suffice, the ease of using the above boards is the code will work without and changes to the pins.
-
-* _SG90 Servo_ - any SG90 style servo will work, we would however recommend the MG90S Micro Servo as it provides a smoother travel to the gauage pointer.
-
-* _Lights_ - [Pimorini White LED Backlight Module – 38.7mm x 11.9mm x 2mm](https://shop.pimoroni.com/products/white-led-backlight-module?variant=36999548170), although any low power led will also suffice
-
-* _PLA for 3D Printing_ - Any PLA for the main parts, the dials graphics are printed on paper and laid flat on a disc (see 3D Printer Files) printed in transparent PLA. This can be left out but it allows the dial to lay flat and provides a nice diffused light. eSun Transparent PLA works well.
-
-## Wiring 
-
-As per below on a NodeMCU, also commented in the Arduino code - pins can be changed according to your own board.
-
- ![Screen](https://github.com/ucl-casa-ce/Open-Gauges/blob/main/imgs/servoneopixelnode.jpg)
- 
-Note - The ServoEasing Library requires version 2.3.4
-
-Newly added (Oct 2022) Micropython version uses a Raspberry Pi Pico W with a Neopixel strip and SG90 servo:
-
-![parts](https://github.com/ucl-casa-ce/Open-Gauges/blob/main/imgs/micropygauge2022.png)
 
 # Augmented Reality Open Gauges
 
-Note this section is a work in progress, a Unity project file is incoming.
+Note this section is a work in progress.
 
  ![Screen](https://github.com/ucl-casa-ce/WindSpeedGauge/blob/main/imgs/blenderstart.png)
 
