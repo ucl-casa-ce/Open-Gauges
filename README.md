@@ -2,7 +2,7 @@
 ### Arduino Code, 3D printer files and Graphics Templates for the Open Gauges project
  ![Fusion Dial](https://github.com/ucl-casa-ce/Open-Gauges/blob/main/imgs/5DialsFrontsm.png)
  
-Run out the [Connected Environments Lab](https://connected-environments.org/) at [The Centre for Advanced Spatial Analysis](https://www.ucl.ac.uk/bartlett/casa), [University College London](https://www.ucl.ac.uk), the Open Gauges Project was initiated as part of the Module on Sensor Data Visualisation, part of the MSc in Connected Environments.
+The  Open Gauges Project project comes from the [Connected Environments Lab](https://connected-environments.org/) at [The Centre for Advanced Spatial Analysis](https://www.ucl.ac.uk/bartlett/casa), [University College London](https://www.ucl.ac.uk), it was initiated as part of the Module on Sensor Data Visualisation, part of the MSc in Connected Environments.
 
 
 The project aims to allow open source data gauges to be built, modified, and viewed as both physical (3d printed) and digital gauges. Depending on the user’s preference the models can be made to run from any online data source with a data feed - from Weather Data with Air Pressure, Temperature, Wind Speed etc though to Air Quality Gauges, Noise Meters, Energy etc. At the current time files to create the physical gauges are provided with versions to work in Augmented Reality, via Unity, incoming. The project was created by [Professor Andrew Hudson-Smith](https://connected-environments.org/people/) and [Dr Valerio Signorelli](https://connected-environments.org/people/). 
