@@ -22,8 +22,8 @@
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(neoNumPixels, neoPin, neoType);
 
 // Wi-Fi credentials
-const char* ssid = "yourwifi";
-const char* password = "yourwifipassword";
+const char* ssid = "";
+const char* password = "";
 
 // MQTT broker details
 const char* mqtt_server = "mqtt.cetools.org";
@@ -33,7 +33,7 @@ const char* wind_topic = "personal/ucfnaps/downhamweather/windSpeed_mph";
 // Define stepper parameters
 #define stepsPerRevolution 2048    // Steps per revolution of the output shaft
 const float gearCircumference = 1; // Circumference of the gear in cm
-const float maxDistanceCm = 1.53;  // Maximum distance the stepper should move (linked to max speed)
+const float maxDistanceCm = 1.34;  // Maximum distance the stepper should move (linked to max speed)
 
 // Calculate steps per cm
 const float stepsPerCm = stepsPerRevolution / gearCircumference;
@@ -141,18 +141,11 @@ void moveStepperToWindSpeed() {
   // Convert distance to steps
   long targetPositionSteps = targetDistance * stepsPerCm;
 
-  Serial.print("Moving stepper to distance (cm): ");
-  Serial.println(targetDistance);
+  Serial.print("Setting new target position (steps): ");
+  Serial.println(targetPositionSteps);
 
-  // Move the stepper to the target position
+  // Set the new target (AccelStepper will calculate the easing curve automatically)
   stepper.moveTo(targetPositionSteps);
-
-  while (stepper.distanceToGo() != 0) {
-    stepper.run();
-  }
-
-  Serial.print("Stepper moved to position (cm): ");
-  Serial.println(targetDistance);
 
   // Update last target speed
   lastTargetWindSpeed = targetWindSpeed;
@@ -161,9 +154,9 @@ void moveStepperToWindSpeed() {
 void homeStepper() {
   Serial.println("Homing stepper motor...");
 
-  // Move stepper motor backward until the limit switch is triggered
-  stepper.setMaxSpeed(300);    // Max speed in steps per second
-  stepper.setAcceleration(100); // Acceleration in steps per second^2
+  // Temporary slow settings just for safe homing
+  stepper.setMaxSpeed(150);    
+  stepper.setAcceleration(100); 
   stepper.setSpeed(-100);      // Move backward
 
   while (digitalRead(limitSwitchPin) == HIGH) { // Assuming HIGH means not triggered
@@ -201,10 +194,17 @@ void setup() {
 
   // Home the stepper motor
   homeStepper();
-   // Pause for 5 seconds
+  
+  // --- GLOBAL EASING CONFIGURATION ---
+  // Lower max speed and much lower acceleration makes easing highly visible 
+  // over tiny distances (like 1.34cm).
+  stepper.setMaxSpeed(400);      // Dropped from 800 to keep movements smooth
+  stepper.setAcceleration(80);   // Dropped from 300 to stretch out the ease-in/out ramp
+  // -----------------------------------
+  // Pause for 5 seconds
   delay(5000);
 
-  // Move to the 60 mph position
+  // Move to the 60 mph position (Testing setup easing)
   Serial.println("Moving to 60 mph mark...");
   float targetDistance60 = (60.0 / 60.0) * maxDistanceCm;
   long targetPositionSteps60 = targetDistance60 * stepsPerCm;
@@ -247,9 +247,10 @@ void loop() {
   }
   client.loop();
 
-  // Adjust stepper based on received wind speed
+  // Non-blocking checking of incoming target speeds
   moveStepperToWindSpeed();
 
-  // Add a small delay to avoid excessive stepper updates
-  delay(1000);
+  // CRITICAL: This must run continuously as fast as possible. 
+  // It increments the stepper position to execute the easing curves.
+  stepper.run();
 }
