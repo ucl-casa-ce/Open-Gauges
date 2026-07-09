@@ -33,7 +33,7 @@ const char* wind_topic = "personal/ucfnaps/downhamweather/windSpeed_mph";
 // Define stepper parameters
 #define stepsPerRevolution 2048    // Steps per revolution of the output shaft
 const float gearCircumference = 1; // Circumference of the gear in cm
-const float maxDistanceCm = 1.34;  // Maximum distance the stepper should move (linked to max speed)
+const float maxDistanceCm = 1.53;  // Maximum distance the stepper should move (linked to max speed)
 
 // Calculate steps per cm
 const float stepsPerCm = stepsPerRevolution / gearCircumference;
