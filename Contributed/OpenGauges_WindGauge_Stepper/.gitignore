@@ -1,0 +1,5 @@
+.DS_Store
+*.blend1
+*.f3d.bak
+build/
+.vscode/
