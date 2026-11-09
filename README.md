@@ -14,14 +14,14 @@ The project aims to allow open source data gauges to be built, modified, and vie
 It is requested that new Guages created - either via additions to the Arduino Code or via new Graphics file are added as new branches, creating a reposit
 ory of both physical and digital gauges. Notable new additions will be featured in this main thread.
 
-A total of 5 Dial Graphics were provided in the initial release - sized to fit into the 3D printed cases. The collection now (13th November 2025) includes an additional [Noise Gauge](https://github.com/ucl-casa-ce/Open-Gauges/tree/main/Contributed/NoiseGauge), [Neopixel Barometer](https://connected-environments.org/open-gauges/neopixel-barometer/) a [Voltmeter Gauge](https://connected-environments.org/making/open-gauges-the-voltmeter-gauge/), [Light Saber Data Tube](https://github.com/ucl-casa-ce/Open-Gauges/tree/main/Contributed/Lightsaber_DataTube), [Ships Lamp Gauge](https://github.com/ucl-casa-ce/Open-Gauges/blob/main/Contributed/ShipsLamp/Readme.md), a [Dial Based Stepper Motor Data Gauage](https://github.com/ucl-casa-ce/Open-Gauges/blob/main/Contributed/StepperGauge/) and a [Linear Stepper Motor Data Gauge](https://github.com/ucl-casa-ce/Open-Gauges/tree/main/Contributed/Linear%20Stepper%20Gauge).
+A total of 5 Dial Graphics were provided in the initial release - sized to fit into the 3D printed cases. The collection now (4th November 2026) includes an additional [Noise Gauge](https://github.com/ucl-casa-ce/Open-Gauges/tree/main/Contributed/NoiseGauge), [Neopixel Barometer](https://connected-environments.org/open-gauges/neopixel-barometer/) a [Voltmeter Gauge](https://connected-environments.org/making/open-gauges-the-voltmeter-gauge/), [Light Saber Data Tube](https://github.com/ucl-casa-ce/Open-Gauges/tree/main/Contributed/Lightsaber_DataTube), [Ships Lamp Gauge](https://github.com/ucl-casa-ce/Open-Gauges/blob/main/Contributed/ShipsLamp/Readme.md), a [Dial Based Stepper Motor Data Gauage](https://github.com/ucl-casa-ce/Open-Gauges/blob/main/Contributed/StepperGauge/) a [Linear Stepper Motor Data Gauge](https://github.com/ucl-casa-ce/Open-Gauges/tree/main/Contributed/Linear%20Stepper%20Gauge) and a new [Wind Direction Gauge using a Stepper Motor and Hall Switch](https://github.com/ucl-casa-ce/Open-Gauges/tree/main/Contributed/OpenGauges_WindGauge_Stepper). 
 
+<img src="https://github.com/ucl-casa-ce/Open-Gauges/blob/main/Contributed/OpenGauges_WindGauge_Stepper/images/windgauge_hero.jpg"  align="centre" width="70%">
 
+The 5 Dial Graphics are - Temperature (-10 to 40 oC), Wind Speed (0-60 mph), Wind Dir (0 - 360), Air Pressure (950 - 1050 mb) and Co2 (400 - 1400 ppm).
 
 <img src="https://github.com/ucl-casa-ce/Open-Gauges/blob/main/Graphics%20Files/initialdials.png" align="centre" width="70%">
 
-
-The 5 Dial Graphics are - Temperature (-10 to 40 oC), Wind Speed (0-60 mph), Wind Dir (0 - 360), Air Pressure (950 - 1050 mb) and Co2 (400 - 1400 ppm).
 
 In addition to reading the MQTT data and using the Servo Easing Library for the servo, the code also includes a time function, allowing the gauge to turn the LED lights/Servo on and off at set times. This is used to turn off at night and on again in the morning.
  
