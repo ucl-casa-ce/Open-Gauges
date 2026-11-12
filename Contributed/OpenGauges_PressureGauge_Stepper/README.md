@@ -12,7 +12,7 @@ It shares the case, bezel, pointer, magnet carrier and acrylic window with the [
 - **Pressure tendency on board:** a rolling 3-hour history (Met Office thresholds) lights RISING (green) or FALLING (amber). A rapid change (3.6 hPa or more in 3 hours) makes them fade in and out. The history is saved to flash, so a quick reboot doesn't lose it.
 - **Self-homing:** the same magnet and KY-003 hall sensor as the wind gauge. The sketch measures the motor's steps per revolution itself and re-zeros every six hours.
 - **Backlash compensation:** every move finishes clockwise, so the gearbox play in the 28BYJ-48 doesn't shift the reading.
-- **Low power when idle:** the motor coils switch off between moves, and the hall sensor is only powered while homing.
+- **Low power when idle:** the motor coils switch off between moves.
 
 ---
 
@@ -60,7 +60,7 @@ The bezel needs at least 205 mm in one direction: it fits a Prusa MK4 and Bambu 
 |---|---|
 | ESP32-C3 Super Mini | Wi-Fi; native USB |
 | 28BYJ-48 stepper (5 V) + ULN2003 driver | 5 V version |
-| KY-003 hall sensor module | powered from a GPIO pin, see Wiring |
+| KY-003 hall sensor module (A3144) | |
 | Neodymium magnet, Ø5 × up to 3 mm | glued into the carrier |
 | WS2812B LED strip, 10 mm wide | 84 LEDs in the sketch; change `NUM_LEDS` to match yours |
 | Clear acrylic disc, Ø190 × 3 mm | laser cut from the WindGauge `cad/Acrylic_190mm_x3_disc.dxf` |
@@ -73,14 +73,17 @@ The bezel needs at least 205 mm in one direction: it fits a Prusa MK4 and Bambu 
 |---|---|
 | GPIO4 / GPIO3 / GPIO1 / GPIO0 | ULN2003 IN1 / IN2 / IN3 / IN4 |
 | GPIO7 | KY-003 S |
-| GPIO5 | KY-003 + (the sensor is powered only while homing) |
 | GPIO10 | WS2812B DIN |
-| 5V | ULN2003 +, LED 5V |
+| 5V | ULN2003 +, KY-003 +, LED 5V |
 | GND | all grounds |
 
 GPIO2, GPIO8 and GPIO9 are strapping pins on the C3, so they're left free.
 
-The KY-003 runs at 3.3 V from GPIO5. That also keeps its signal at 3.3 V, which the ESP32-C3 needs, because its pins aren't 5 V tolerant. Most KY-003 modules (A3144) trigger fine at 3.3 V, but the chip is rated from 4.5 V. If homing never finds the magnet, use a 3.3 V hall sensor such as the DRV5023.
+Everything runs from USB through the Super Mini's 5V pin, wired directly. Optional extras for more margin:
+
+- **Divider on the hall sensor signal:** the KY-003 pulls its output up to 5 V, and the ESP32-C3 is a 3.3 V chip. A 10 kΩ / 20 kΩ divider on the signal keeps GPIO7 within spec. Without it, the module's own 10 kΩ pull-up limits the current, and it works in practice.
+- **Power the hall sensor only while homing:** wire KY-003 + to GPIO5 instead of 5V. The sketch switches it on just for homing, which saves a few mA (useful on battery). The A3144 is rated from 4.5 V, so check that yours triggers at 3.3 V; most do.
+- **LED strip:** a 330 Ω resistor on LED data and a 1000 µF capacitor across the strip.
 
 ## Firmware
 
@@ -122,7 +125,7 @@ Wi-Fi connects before the motor runs, so the two biggest power draws never overl
 |---|---|
 | Ring stays red or dark | Sketch not running: unplug the USB and plug it back in (after an upload the C3 can stay in download mode). |
 | Ring stays blue | Wi-Fi not connecting: check the name and password, and that it's a 2.4 GHz network. Transmit power is set low (8.5 dBm) for the Super Mini's small antenna, so try it closer to the router. |
-| Ring yellow, motor turning without stopping | Hall sensor not triggering: check KY-003 + is on GPIO5, flip the magnet, and keep the gap around 1.5 mm. |
+| Ring yellow, motor turning without stopping | Hall sensor not triggering: flip the magnet and keep the gap around 1.5 mm. |
 | Ring yellow, motor still | IN1–IN4 wiring or no 5 V on the ULN2003. |
 | No Serial Monitor output | USB CDC On Boot must be Enabled; press RST with the monitor open. |
 | Pointer off by a degree or two after falling pressure | Increase `backlashDeg`. |

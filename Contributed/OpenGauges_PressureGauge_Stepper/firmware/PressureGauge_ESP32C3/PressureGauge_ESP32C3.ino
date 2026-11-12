@@ -12,8 +12,8 @@
   - The trend history is saved to flash, so a reboot or power cut doesn't lose it.
   - Start-up progress on the ring: RED started, BLUE Wi-Fi, YELLOW homing,
     PURPLE self-test, WHITE ready.
-  - The hall sensor is powered from GPIO5 only while homing (wire KY-003 "+" to GPIO5,
-    not to 3V3/5V), so it draws nothing the rest of the time.
+  - KY-003 "+" can go to 5V (simplest), or to GPIO5 so the sensor is powered only
+    while homing and draws nothing the rest of the time. The sketch works either way.
 
   Libraries (Library Manager): AccelStepper, PubSubClient, ArduinoJson (v7), Adafruit NeoPixel
   Tools menu: Board "ESP32C3 Dev Module", USB CDC On Boot "Enabled" (for Serial Monitor)
@@ -49,7 +49,7 @@ const char* pressure_topic = "personal/ucfnaps/downhamweather/loop";   // edit f
 #define IN3_PIN   1     // ULN2003 IN3
 #define IN4_PIN   0     // ULN2003 IN4
 #define HALL_PIN  7     // KY-003 S
-#define HALL_PWR  5     // KY-003 + (VCC) — powered from this pin only while homing
+#define HALL_PWR  5     // optional: KY-003 + here to power it only while homing
 #define LED_PIN   10    // LED strip DIN
 
 // ===========================================================================
