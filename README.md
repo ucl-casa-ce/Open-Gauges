@@ -21,18 +21,18 @@ The project was created by [Professor Andrew Hudson-Smith](https://connected-env
 <td width="33%" valign="top" align="center"><a href="Contributed/OpenGauges_TemperatureGauge_Stepper/"><img src="imgs/gallery/temperature.jpg" alt="Temperature Gauge" width="100%"></a><br><b><a href="Contributed/OpenGauges_TemperatureGauge_Stepper/">Temperature Gauge</a></b><br>The same case with a −10 to 40 °C dial, ESP32-C3, and RISING / FALLING trend lights.</td>
 </tr>
 <tr>
+<td width="33%" valign="top" align="center"><a href="Contributed/OpenGauges_WindSpeedGauge_Stepper/"><img src="imgs/gallery/windspeed.jpg" alt="Wind Speed Gauge" width="100%"></a><br><b><a href="Contributed/OpenGauges_WindSpeedGauge_Stepper/">Wind Speed Gauge</a></b><br>The same case with a 0–40 mph dial showing live gusts, and an LED marking the day's maximum.</td>
 <td width="33%" valign="top" align="center"><a href="Contributed/StepperGauge/"><img src="imgs/gallery/dialstepper.jpg" alt="Dial Stepper Gauge" width="100%"></a><br><b><a href="Contributed/StepperGauge/">Dial Stepper Gauge</a></b><br>A stepper motor dial for any data range, with a limit switch for homing.</td>
 <td width="33%" valign="top" align="center"><a href="Contributed/Linear%20Stepper%20Gauge/"><img src="imgs/gallery/linearstepper.jpg" alt="Linear Stepper Gauge" width="100%"></a><br><b><a href="Contributed/Linear%20Stepper%20Gauge/">Linear Stepper Gauge</a></b><br>A belt-driven pointer that moves along a straight scale.</td>
-<td width="33%" valign="top" align="center"><a href="Contributed/NoiseGauge/"><img src="imgs/gallery/noise.jpg" alt="Noise Gauge" width="100%"></a><br><b><a href="Contributed/NoiseGauge/">Noise Gauge</a></b><br>Shows noise exposure levels on a printed dial.</td>
 </tr>
 <tr>
+<td width="33%" valign="top" align="center"><a href="Contributed/NoiseGauge/"><img src="imgs/gallery/noise.jpg" alt="Noise Gauge" width="100%"></a><br><b><a href="Contributed/NoiseGauge/">Noise Gauge</a></b><br>Shows noise exposure levels on a printed dial.</td>
 <td width="33%" valign="top" align="center"><a href="Contributed/NeoPixelBarometer/"><img src="imgs/gallery/neopixelbarometer.jpg" alt="NeoPixel Barometer" width="100%"></a><br><b><a href="Contributed/NeoPixelBarometer/">NeoPixel Barometer</a></b><br>A light tube barometer. Also in <a href="Contributed/OpenWeatherMapNeoPixelBarometer/">Open Weather Map</a> and <a href="Contributed/WindSpeedNeoPixelGauge/">wind speed</a> versions. <a href="https://connected-environments.org/open-gauges/neopixel-barometer/">Blog post</a>.</td>
 <td width="33%" valign="top" align="center"><a href="Contributed/Lightsaber_DataTube/"><img src="https://connected-environments.org/assets/img/blog/202311-lightsaber/LightSaberTitle-1024x497.jpg" alt="Lightsaber Data Tube" width="100%"></a><br><b><a href="Contributed/Lightsaber_DataTube/">Lightsaber Data Tube</a></b><br>A NeoPixel-filled tube that shows live wind speed.</td>
-<td width="33%" valign="top" align="center"><a href="Contributed/ShipsLamp/Readme.md"><img src="imgs/gallery/shipslamp.jpg" alt="Ships Lamp Gauge" width="100%"></a><br><b><a href="Contributed/ShipsLamp/Readme.md">Ships Lamp Gauge</a></b><br>A ship's lamp that glows with the wind speed.</td>
 </tr>
 <tr>
+<td width="33%" valign="top" align="center"><a href="Contributed/ShipsLamp/Readme.md"><img src="imgs/gallery/shipslamp.jpg" alt="Ships Lamp Gauge" width="100%"></a><br><b><a href="Contributed/ShipsLamp/Readme.md">Ships Lamp Gauge</a></b><br>A ship's lamp that glows with the wind speed.</td>
 <td width="33%" valign="top" align="center"><b><a href="Contributed/Voltmeter%20Gauge/">Voltmeter Gauge</a></b><br>A panel voltmeter driven by PWM from an Arduino, with a printed dial face. <a href="https://connected-environments.org/making/open-gauges-the-voltmeter-gauge/">Blog post</a>.<br><br><b><a href="Contributed/MarbleWindDirectoinGauge/">Marble Wind Direction Gauge</a></b><br>Print files for a marble that rolls to the wind direction.</td>
-<td width="33%"></td>
 <td width="33%"></td>
 </tr>
 </table>
