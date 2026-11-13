@@ -99,7 +99,7 @@ const uint8_t maxRGB[3]       = {255, 0, 0};      // red
 //   At start-up the marker LED follows the pointer through the self-test: if it sits
 //   beside the pointer the numbers are right. LED ahead of the pointer clockwise ->
 //   decrease led0BearingDeg; behind it -> increase.
-const float led0BearingDeg = 160.0;   // where LED 0 sits
+const float led0BearingDeg = 148.0;   // where LED 0 sits (measured on the built gauge)
 const float ledsPerMetre   = 144.0;   // strip density
 const float stripRadiusMm  = 95.0;    // radius of the strip in the case's LED channel
 const int   ledDirection   = -1;      // -1 = strip runs anticlockwise from LED 0, +1 = clockwise

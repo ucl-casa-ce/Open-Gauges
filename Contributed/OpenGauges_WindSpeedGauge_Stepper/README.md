@@ -111,7 +111,7 @@ Everything runs from USB through the Super Mini's 5V pin, wired directly. Option
 
 ### Lining up the maximum LED
 
-LED 0 sits at the gap just right of the bottom of the dial, and the strip runs anticlockwise from there. With a 144 LEDs/m strip round the case's LED channel (about 95 mm radius) that's roughly 86 LEDs per turn, 4.2° apart, so 0 mph is LED 70, 20 mph LED 38 and 40 mph LED 6.
+LED 0 sits at the gap just right of the bottom of the dial (`led0BearingDeg` = 148°, measured on the built gauge), and the strip runs anticlockwise from there. With a 144 LEDs/m strip round the case's LED channel (about 95 mm radius) that's roughly 86 LEDs per turn, 4.2° apart, so 0 mph is LED 68, 20 mph LED 35 and 40 mph LED 3.
 
 During the start-up self-test the red LED follows the pointer to 0, 40 and 20 mph. If it sits beside the pointer each time, you're set. If it's ahead of the pointer (clockwise), lower `led0BearingDeg`; if it's behind, raise it. For a 60 LEDs/m strip, change `ledsPerMetre`.
 

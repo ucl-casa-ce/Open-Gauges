@@ -12,6 +12,7 @@
   - The trend history is saved to flash, so a reboot or power cut doesn't lose it.
   - Start-up progress on the ring: RED started, BLUE Wi-Fi, YELLOW homing,
     PURPLE self-test, WHITE ready.
+  - Same wiring as the Open Gauges wind, temperature, wind speed and rain gauges.
   - KY-003 "+" can go to 5V (simplest), or to GPIO5 so the sensor is powered only
     while homing and draws nothing the rest of the time. The sketch works either way.
 
@@ -94,10 +95,10 @@ const int   minHistoryMins  = 60;     // need this much history before showing a
 #define TREND_BRIGHTNESS  255        // 0-255, RISING / FALLING LEDs when lit (and fade peak)
 #define TREND_FADE_MIN    30         // 0-255, lowest point of the fade for a rapid change
 
-// LED numbers to light beside the words. Defaults assume LED 0 is at 12 o'clock and
-// the strip runs clockwise (80 LEDs = 4.5 deg each): RISING ~162 deg, FALLING ~198 deg.
+// LED numbers to light beside the words. LED 0 is at the gap just right of the bottom
+// of the dial and the strip runs anticlockwise from there (144 LEDs/m).
 // Set LED_FINDER_MODE to 1 once to see which numbers are where on YOUR strip.
-const int risingLeds[]  = {83, 0, 1, 2};
+const int risingLeds[]  = {79, 80, 82, 83, 1, 2};
 const int fallingLeds[] = {70, 71, 72, 73, 74};
 
 const uint8_t backlightRGB[3] = {255, 255, 255};   // rest of the ring
