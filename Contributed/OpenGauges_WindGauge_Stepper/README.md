@@ -4,7 +4,7 @@
 
 ![WindGauge, assembled, pointer at 300°](images/windgauge_hero.jpg)
 
-A 205 mm wall-mounted dial that shows live wind direction from your weather station. An Arduino Nano 33 IoT reads the bearing from an MQTT feed over Wi-Fi and turns a 28BYJ-48 stepper. A hall sensor finds North on every start-up, and an LED strip lights the dial from behind.
+A 205 mm wall-mounted dial that shows live wind direction from your weather station. An ESP32-C3 Super Mini reads the bearing from an MQTT feed over Wi-Fi and turns a 28BYJ-48 stepper. A hall sensor finds North on every start-up, and an LED strip lights the dial from behind.
 
 - **Prints on a 220 mm-class bed:** five parts, no supports, largest part 204.8 mm.
 - **Self-homing:** a magnet on the pointer carrier passes a KY-003 hall sensor at North. The sketch measures the motor's steps per revolution itself and re-zeros every six hours.
@@ -18,7 +18,7 @@ A 205 mm wall-mounted dial that shows live wind direction from your weather stat
 
 ## How it works
 
-Your weather station publishes wind direction (degrees) to an MQTT broker. The Nano 33 IoT subscribes and turns the stepper by the shortest path to that bearing. The pointer sits on a printed **magnet carrier** on the motor shaft; a 5 mm magnet in the carrier passes over the hall sensor at North.
+Your weather station publishes wind direction (degrees) to an MQTT broker. The ESP32-C3 subscribes and turns the stepper by the shortest path to that bearing. It uses the same board, wiring and firmware layout as the [PressureGauge](../OpenGauges_PressureGauge_Stepper/) and [TemperatureGauge](../OpenGauges_TemperatureGauge_Stepper/). The pointer sits on a printed **magnet carrier** on the motor shaft; a 5 mm magnet in the carrier passes over the hall sensor at North.
 
 ![Exploded view](images/windgauge_exploded.jpg)
 
@@ -33,7 +33,7 @@ print/stl/        printed parts, oriented for printing (STL)
 print/3mf/        the same parts as 3MF
 print/flat-dial/  flat two-colour dial (3MF with both parts + separate STLs)
 cad/              Fusion 360 archive (.f3d), STEP files, acrylic window DXF
-firmware/         Arduino sketch for the Nano 33 IoT
+firmware/         Arduino sketch for the ESP32-C3 Super Mini
 docs/             how-to guide (PDF + editable Word), wiring diagram
 images/           renders used in this README
 ```
@@ -57,7 +57,7 @@ The bezel needs at least 205 mm in one direction: it fits a Prusa MK4 and Bambu 
 
 | Item | Notes |
 |---|---|
-| Arduino Nano 33 IoT (with headers) | Wi-Fi via WiFiNINA |
+| ESP32-C3 Super Mini (with headers) | Wi-Fi; native USB-C; 3.3 V logic |
 | Mini breadboard, 170 tie-points | ~46 × 35 × 9.4 mm; side tabs clip into the tray notches |
 | 28BYJ-48 stepper (5 V) + ULN2003 driver | 5 V version |
 | KY-003 hall sensor module (A3144) | |
@@ -65,7 +65,7 @@ The bezel needs at least 205 mm in one direction: it fits a Prusa MK4 and Bambu 
 | WS2812B LED strip, 10 mm wide, ≤ 2.2 mm thick | ~0.6 m; bare or IP30 (not silicone-sleeved) |
 | Clear acrylic disc, Ø190 × 3 mm | laser cut from `cad/Acrylic_190mm_x3_disc.dxf` |
 | 2 × M3 × 6 pan-head screws | motor ears |
-| Jumper wires, micro-USB cable, 5 V USB supply | a 2 A supply gives the LEDs headroom |
+| Jumper wires, USB-C cable, 5 V USB supply | a 2 A supply gives the LEDs headroom |
 | 1 × wall screw | head ≤ 9.5 mm across, ≤ 3.5 mm thick |
 
 ## Printing notes
@@ -81,7 +81,7 @@ The bezel needs at least 205 mm in one direction: it fits a Prusa MK4 and Bambu 
 1. Test-fit the dial and bezel before adding electronics.
 2. Drop the 28BYJ-48 into its pocket (wire cover down) and fix it with 2 × M3 × 6.
 3. Snap the ULN2003 into its cradle and plug in the motor.
-4. Press the breadboard into the bottom tray (tabs into the notches), Nano USB end towards the wall.
+4. Press the breadboard into the bottom tray (tabs into the notches) and plug the ESP32-C3 in at the wall end, USB-C towards the wall.
 5. Lay the A3144 flat on its shelf and snap the KY-003 in.
 6. Check the magnet's polarity (KY-003 LED lights), glue it into the carrier, and push the carrier onto the shaft.
 7. Clip the LED strip into the channel, starting at the wire gap at 5 o'clock.
@@ -92,43 +92,70 @@ The bezel needs at least 205 mm in one direction: it fits a Prusa MK4 and Bambu 
 
 ## Wiring
 
-![Wiring diagram](docs/Wiring_Nano33IoT.png)
+![Wiring diagram](docs/Wiring_ESP32C3.png)
 
-| Nano 33 IoT | Connects to |
+Identical to the PressureGauge and TemperatureGauge.
+
+| ESP32-C3 Super Mini | Connects to |
 |---|---|
-| D9 / D10 / D11 / D12 | ULN2003 IN1 / IN2 / IN3 / IN4 |
-| D8 | KY-003 S |
-| D7 | WS2812B DIN |
-| +5V | ULN2003 +, KY-003 +, LED 5V |
+| GPIO4 / GPIO3 / GPIO1 / GPIO0 | ULN2003 IN1 / IN2 / IN3 / IN4 |
+| GPIO7 | KY-003 S |
+| GPIO10 | WS2812B DIN |
+| 5V | ULN2003 +, KY-003 +, LED 5V |
 | GND | all grounds |
 
-Everything runs from USB through the Nano's +5V pin, wired directly. Optional extras for more margin: a 10 kΩ / 20 kΩ divider on the KY-003 signal (its output is pulled up to 5 V and the Nano is a 3.3 V board), and a 330 Ω resistor on LED data plus a 1000 µF capacitor across the strip.
+GPIO2, GPIO8 and GPIO9 are strapping pins on the C3, so they're left free.
+
+Everything runs from USB through the Super Mini's 5V pin, wired directly. Optional extras for more margin:
+
+- **Divider on the hall sensor signal:** the KY-003 pulls its output up to 5 V, and the ESP32-C3 is a 3.3 V chip. A 10 kΩ / 20 kΩ divider on the signal keeps GPIO7 within spec. Without it, the module's own 10 kΩ pull-up limits the current, and it works in practice.
+- **Power the hall sensor only while homing:** wire KY-003 + to GPIO5 instead of 5V. The sketch switches it on just for homing, which saves a few mA (useful on battery). The A3144 is rated from 4.5 V, so check that yours triggers at 3.3 V; most do.
+- **LED strip:** a 330 Ω resistor on LED data and a 1000 µF capacitor across the strip.
 
 ## Firmware
 
-[`firmware/WindGauge_Nano33IoT/WindGauge_Nano33IoT.ino`](firmware/WindGauge_Nano33IoT/WindGauge_Nano33IoT.ino)
+[`firmware/WindGauge_ESP32C3/WindGauge_ESP32C3.ino`](firmware/WindGauge_ESP32C3/WindGauge_ESP32C3.ino)
 
-1. Arduino IDE: install **Arduino SAMD Boards** and select **Arduino Nano 33 IoT**.
-2. Libraries: **AccelStepper**, **WiFiNINA**, **PubSubClient**, **Adafruit NeoPixel**.
-3. Edit the settings at the top of the sketch and upload.
+1. Arduino IDE: install **esp32 by Espressif Systems** (v3.x) and select **ESP32C3 Dev Module**.
+2. Tools menu: set **USB CDC On Boot** to **Enabled** for the Serial Monitor.
+3. Libraries: **AccelStepper**, **PubSubClient**, **ArduinoJson** (v7), **Adafruit NeoPixel**.
+4. Edit the settings at the top of the sketch and upload.
 
 | Setting | What it does |
 |---|---|
 | `ssid`, `password` | your Wi-Fi |
-| `mqtt_server`, `mqtt_port`, `wind_topic` | your broker and topic; the payload is plain degrees, e.g. `247` |
-| `neoNumPixels`, `neoBrightness` | LED count and brightness (lower it if the board resets) |
+| `mqtt_server`, `mqtt_port`, `wind_topic` | your broker and topic: plain degrees (e.g. `247`) or a weeWX loop packet (JSON) with `windDir` |
 | `northOffsetDeg` | fine-tunes North: pointer short of N → increase, overshoots → decrease |
+| `backlashDeg` | gearbox play to take up on anticlockwise moves (typically 2–6°) |
+| `moveDeadbandDeg` | ignore changes smaller than this (2° in the sketch), so the pointer doesn't twitch |
+| `NUM_LEDS`, `LED_BRIGHTNESS` | LED count and backlight brightness (lower it if the board resets) |
 
-On start-up the gauge homes on the magnet, measures one full revolution, moves to true North, sweeps to South and back as a self-test, then connects to Wi-Fi and MQTT.
+### Start-up
+
+The ring shows how far start-up has got, so you can follow it without the Serial Monitor:
+
+| Ring colour | Stage |
+|---|---|
+| Red | sketch started |
+| Blue | connecting to Wi-Fi |
+| Yellow | homing and measuring one revolution (motor turning) |
+| Purple | self-test sweep: N → S → N |
+| White | ready |
+
+Wi-Fi connects before the motor runs, so the two biggest power draws never overlap. Calm readings (no direction) are ignored, so the pointer holds its last bearing. The motor coils switch off between moves, and the gauge re-homes on the magnet every six hours.
 
 ## Troubleshooting
 
 | Symptom | Fix |
 |---|---|
-| Motor keeps turning at start-up | Hall sensor not triggering: flip the magnet; the gap should be ~1.5 mm. |
-| ULN2003 LEDs and strip dark | No 5 V on the +5V pin. Some older Nano 33 IoT boards need the VUSB pads bridged. |
-| Motor buzzes, doesn't turn | IN1–IN4 out of order (D9–D12 in order). |
-| Board resets when LEDs light | Lower `neoBrightness` or use a stronger supply. |
+| Ring stays red or dark | Sketch not running: unplug the USB and plug it back in (after an upload the C3 can stay in download mode). |
+| Ring stays blue | Wi-Fi not connecting: check the name and password, and that it's a 2.4 GHz network. Transmit power is set low (8.5 dBm) for the Super Mini's small antenna, so try it closer to the router. |
+| Ring yellow, motor turning without stopping | Hall sensor not triggering: flip the magnet; the gap should be ~1.5 mm. |
+| Ring yellow, motor still | IN1–IN4 wiring or no 5 V on the ULN2003. |
+| Motor buzzes, doesn't turn | IN1–IN4 out of order: GPIO4, GPIO3, GPIO1, GPIO0 to IN1–IN4. |
+| No Serial Monitor output | USB CDC On Boot must be Enabled; press RST with the monitor open. |
+| Board resets when LEDs light | Lower `LED_BRIGHTNESS` or use a stronger supply. |
+| Pointer a degree or two off after anticlockwise moves | Increase `backlashDeg`. |
 | Pointer rubs | Push the carrier and pointer fully home; both have hard stops. |
 
 ## CAD
