@@ -8,7 +8,7 @@ Open Gauges comes from the [Connected Environments Lab](https://connected-enviro
 
 The aim is open-source data gauges that anyone can build, modify and view, both as physical 3D-printed objects and as digital gauges. A gauge can run from any online data feed: weather data such as air pressure, temperature and wind speed, through to air quality, noise and energy. Most of the gauges here read their data over Wi-Fi from an MQTT broker.
 
-The project was created by [Professor Andrew Hudson-Smith](https://connected-environments.org/people/) and [Dr Valerio Signorelli](https://connected-environments.org/people/).
+The project was created by [Professor Andrew Hudson-Smith](https://connected-environments.org/people/) and [Associate Professor Valerio Signorelli](https://connected-environments.org/people/).
 
 ---
 
