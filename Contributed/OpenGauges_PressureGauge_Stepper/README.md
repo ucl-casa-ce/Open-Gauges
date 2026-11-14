@@ -119,6 +119,20 @@ The ring shows how far start-up has got, so you can follow it without the Serial
 
 Wi-Fi connects before the motor runs, so the two biggest power draws never overlap. RISING / FALLING need an hour of readings before they can light.
 
+## Optional: backlight schedule
+
+[`firmware/PressureGauge_ESP32C3_Lights/PressureGauge_ESP32C3_Lights.ino`](firmware/PressureGauge_ESP32C3_Lights/PressureGauge_ESP32C3_Lights.ino) is the same sketch with a timer for the backlight. Use it instead of the standard sketch if you don't want the dial lit all night. The wiring and other settings are the same.
+
+| Setting | What it does |
+|---|---|
+| `lightsMode` | `LIGHTS_ON` (always on), `LIGHTS_OFF` (always off) or `LIGHTS_DUSK` (on at dusk, off at the off time) |
+| `lightsOffHour`, `lightsOffMinute` | off time, local; `0`, `0` is midnight, and times after midnight such as `1`, `0` work too |
+| `latitude`, `longitude` | where the gauge is, in decimal degrees (west is negative). Dusk is worked out from these each day |
+| `duskSunAngle` | what counts as dusk: `-0.833` is sunset, `-6` is civil dusk, about 35 minutes later in the UK |
+| `tzInfo` | your time zone, so dusk and the off time are in local time (UK GMT/BST by default) |
+
+RISING and FALLING light in every mode, even with the backlight off. The start-up colours still show in every mode. Until the board has the time from the internet, a second or two after start-up, the backlight stays on. The backlight in this sketch is set to 120.
+
 ## Troubleshooting
 
 | Symptom | Fix |

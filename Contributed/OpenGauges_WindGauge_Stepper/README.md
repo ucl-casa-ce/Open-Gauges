@@ -144,6 +144,22 @@ The ring shows how far start-up has got, so you can follow it without the Serial
 
 Wi-Fi connects before the motor runs, so the two biggest power draws never overlap. Calm readings (no direction) are ignored, so the pointer holds its last bearing. The motor coils switch off between moves, and the gauge re-homes on the magnet every six hours.
 
+## Optional: backlight schedule
+
+[`firmware/WindGauge_ESP32C3_Lights/WindGauge_ESP32C3_Lights.ino`](firmware/WindGauge_ESP32C3_Lights/WindGauge_ESP32C3_Lights.ino) is the same sketch with a timer for the backlight. Use it instead of the standard sketch if you don't want the dial lit all night. The wiring and other settings are the same.
+
+If you built an earlier version with an **Arduino Nano 33 IoT**, [`firmware/WindGauge_Nano33IoT_Lights/WindGauge_Nano33IoT_Lights.ino`](firmware/WindGauge_Nano33IoT_Lights/WindGauge_Nano33IoT_Lights.ino) does the same on the Nano: the original Nano wiring (D9–D12 motor, D8 hall sensor, D7 LEDs) plus the backlight timer. It also switches the motor coils off between moves, like the ESP32-C3 sketch. In the Arduino IDE, select **Arduino Nano 33 IoT** (board package **Arduino SAMD Boards**) and install **WiFiNINA** instead of ArduinoJson. The Nano gets the time from its Wi-Fi module and applies UK/EU summer time itself, so it uses `utcOffsetMinutes` and `useSummerTime` in place of `tzInfo`.
+
+| Setting | What it does |
+|---|---|
+| `lightsMode` | `LIGHTS_ON` (always on), `LIGHTS_OFF` (always off) or `LIGHTS_DUSK` (on at dusk, off at the off time) |
+| `lightsOffHour`, `lightsOffMinute` | off time, local; `0`, `0` is midnight, and times after midnight such as `1`, `0` work too |
+| `latitude`, `longitude` | where the gauge is, in decimal degrees (west is negative). Dusk is worked out from these each day |
+| `duskSunAngle` | what counts as dusk: `-0.833` is sunset, `-6` is civil dusk, about 35 minutes later in the UK |
+| `tzInfo` | your time zone, so dusk and the off time are in local time (UK GMT/BST by default) |
+
+The start-up colours still show in every mode (the Nano sketch lights white while it starts). Until the board has the time from the internet, a second or two after start-up, the backlight stays on. The backlight in this sketch is set to 120.
+
 ## Troubleshooting
 
 | Symptom | Fix |
