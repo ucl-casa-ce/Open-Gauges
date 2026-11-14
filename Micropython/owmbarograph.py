@@ -5,8 +5,8 @@ from machine import Pin, PWM
 import urequests
 from time import sleep
 
-ssid = 'BTWholeHome-JCN'
-password = 'SaladinHouse11'
+ssid = 'YOUR_WIFI_NAME'
+password = 'YOUR_WIFI_PASSWORD'
 
 global baro
 
