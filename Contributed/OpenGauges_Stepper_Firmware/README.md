@@ -7,7 +7,7 @@ One sketch runs all five stepper gauges: [wind direction](../OpenGauges_WindGaug
 > **Beta.** The per-gauge sketches in each gauge's `firmware/` folder still work and stay in place until this one has been tested on every gauge.
 
 - **Set up from your phone:** Wi-Fi, gauge type, weather feed and location, on a setup page the gauge serves itself. No Wi-Fi passwords in the sketch.
-- **Settings page while it runs:** backlight (on at dusk, always on or always off), weather feed with a live check that data is arriving, pointer tuning you can watch as you adjust, an LED finder, and gauge type.
+- **Settings page while it runs:** backlight (on at dusk, always on or always off), weather feed with a live check that data is arriving, pointer tuning you can watch as you adjust, LED positions with an LED finder, and gauge type.
 - **Wireless updates (OTA):** after the first USB upload, upload over Wi-Fi from the Arduino IDE.
 - **Never hangs on homing:** if the magnet isn't found the gauge carries on, shows a red warning LED and retries every hour.
 - **Works straight away:** the feed is filled in with a live demo station, so a new gauge moves as soon as it's online. Swap in your own feed when you're ready.
@@ -54,7 +54,7 @@ With your phone on the same Wi-Fi, browse to **`http://opengauge-<type>-xxxx.loc
 | Backlight | on at dusk (until an off time), always on or always off; location; brightness. Applies and saves straight away, and shows today's dusk time. |
 | Weather feed | server, port, username, password, topic and units. Applies and saves straight away. The status line shows whether data is arriving: *not connected*, *connected but no messages on this topic*, *messages arriving but no reading found in them*, or *✓ data arriving*. |
 | Pointer tuning | see below |
-| LED finder | lights one LED red for 5 seconds, to find the numbers beside the words on your dial |
+| LEDs | **LED finder** lights one LED red for 5 seconds. On pressure and temperature, set the **LED numbers beside RISING and FALLING**; *Apply & show* lights both sets so you can check them. On wind speed, set **where LED 0 sits** for the day's-max LED; *Apply & test* moves the pointer and lights the LED that should sit beside it. Saved straight away. |
 | Gauge type | changes the type and restarts. Each type keeps its own feed and tuning. |
 
 The page is served for **10 minutes** after start-up, or after you last used it, so it isn't running all the time. To open it again, restart the gauge or press its **BOOT** button: the ring flashes cyan.

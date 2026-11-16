@@ -70,7 +70,7 @@ const float   pulsePeriodS    = 2.0;
 
 // Where the LEDs sit (used to light the LED beside a value, e.g. the day's max).
 // LED 0 is at the gap just right of 6 o'clock and the strip runs anticlockwise.
-const float led0BearingDeg = 148;     // bearing of LED 0, degrees clockwise from 12 o'clock
+const float led0BearingDefault = 148; // bearing of LED 0, degrees clockwise from 12 o'clock (set per gauge on the settings page)
 const float ledsPerMetre   = 144.0;
 const float stripRadiusMm  = 95.0;
 const int   ledDirection   = -1;      // -1 = anticlockwise from LED 0
@@ -198,6 +198,9 @@ struct TypeSettings {
   float backlashDeg;
   float trimLowDeg;          // nudge at the bottom-left end, fading to nothing at the top
   float trimHighDeg;         // nudge at the bottom-right end
+  char  risingLeds[48];      // LED numbers beside RISING, e.g. "79,80,82,83,1,2"
+  char  fallingLeds[48];     // LED numbers beside FALLING
+  float led0Bearing;         // where LED 0 sits, for the LED beside a value (day's max)
 } ts;
 
 Preferences prefs;
@@ -222,6 +225,12 @@ void loadTypeSettings(int t, TypeSettings& s) {
   s.homeOffsetDeg = p.homeOffset;
   s.backlashDeg   = p.backlash;
   s.trimLowDeg = s.trimHighDeg = 0;
+  s.led0Bearing = led0BearingDefault;
+  s.risingLeds[0] = s.fallingLeds[0] = 0;
+  for (int i = 0; i < p.nRising; i++)
+    snprintf(s.risingLeds + strlen(s.risingLeds), sizeof(s.risingLeds) - strlen(s.risingLeds), "%s%d", i ? "," : "", p.risingLeds[i]);
+  for (int i = 0; i < p.nFalling; i++)
+    snprintf(s.fallingLeds + strlen(s.fallingLeds), sizeof(s.fallingLeds) - strlen(s.fallingLeds), "%s%d", i ? "," : "", p.fallingLeds[i]);
   char k[12];
   prefs.begin("ogauge", true);
   if (t == G_RAIN) {                           // settings from the rain-gauge trial sketch
@@ -238,6 +247,9 @@ void loadTypeSettings(int t, TypeSettings& s) {
   snprintf(k, sizeof(k), "back%d", t);  s.backlashDeg   = getF(k, s.backlashDeg);
   snprintf(k, sizeof(k), "tlo%d", t);   s.trimLowDeg    = getF(k, s.trimLowDeg);
   snprintf(k, sizeof(k), "thi%d", t);   s.trimHighDeg   = getF(k, s.trimHighDeg);
+  snprintf(k, sizeof(k), "rise%d", t);  getStr(k, s.risingLeds, sizeof(s.risingLeds));
+  snprintf(k, sizeof(k), "fall%d", t);  getStr(k, s.fallingLeds, sizeof(s.fallingLeds));
+  snprintf(k, sizeof(k), "led0%d", t);  s.led0Bearing   = getF(k, s.led0Bearing);
   prefs.end();
   if (!unitAllowed(t, s.units)) strlcpy(s.units, p.defaultUnits, sizeof(s.units));
 }
@@ -251,6 +263,9 @@ void saveTypeSettings(int t, const TypeSettings& s) {
   snprintf(k, sizeof(k), "back%d", t);  prefs.putFloat(k, s.backlashDeg);
   snprintf(k, sizeof(k), "tlo%d", t);   prefs.putFloat(k, s.trimLowDeg);
   snprintf(k, sizeof(k), "thi%d", t);   prefs.putFloat(k, s.trimHighDeg);
+  snprintf(k, sizeof(k), "rise%d", t);  prefs.putString(k, s.risingLeds);
+  snprintf(k, sizeof(k), "fall%d", t);  prefs.putString(k, s.fallingLeds);
+  snprintf(k, sizeof(k), "led0%d", t);  prefs.putFloat(k, s.led0Bearing);
   prefs.end();
 }
 
@@ -564,12 +579,28 @@ void loadDayMax() {
 // LEDS
 // ===========================================================================
 int markerLed = -1;                 // follows the pointer in the wind speed self-test
+unsigned long markerUntil = 0;      // marker shown for a while by the settings page
+unsigned long showWordsUntil = 0;   // light both RISING and FALLING LEDs to check them
+
+// LED numbers from text like "79, 80, 82" (anything that isn't a digit separates them)
+int parseLeds(const char* text, int* out, int maxN) {
+  int n = 0;
+  const char* c = text;
+  while (*c && n < maxN) {
+    if (isdigit(*c)) {
+      int v = atoi(c);
+      if (v >= 0 && v < NUM_LEDS) out[n++] = v;
+      while (isdigit(*c)) c++;
+    } else c++;
+  }
+  return n;
+}
 int finderLed = -1;                 // LED finder on the settings page
 unsigned long finderUntil = 0;
 
 int valueToLed(float v) {
   float bearing = valueToDeg(v);
-  float d = fmodf((bearing - led0BearingDeg) * ledDirection, 360.0f);
+  float d = fmodf((bearing - ts.led0Bearing) * ledDirection, 360.0f);
   if (d < 0) d += 360.0f;
   int i = lround(d / degPerLed);
   int perTurn = lround(360.0f / degPerLed);
@@ -586,14 +617,18 @@ void updateLeds() {
   const float backK = backlightOn ? constrain(cfg.brightness, 0, 255) / 255.0f : 0.0f;
   for (int i = 0; i < NUM_LEDS; i++) setRGB(i, backlightRGB, backK);
 
-  if (p.extra == EX_TREND && trend != TREND_STEADY) {
+  bool showWords = showWordsUntil && (long)(millis() - showWordsUntil) < 0;
+  if (p.extra == EX_TREND && (trend != TREND_STEADY || showWords)) {
+    int rise[16], fall[16];
+    int nRise = parseLeds(ts.risingLeds, rise, 16), nFall = parseLeds(ts.fallingLeds, fall, 16);
     float level = HIGHLIGHT_BRIGHT;
     if (trendFast) {
       float wave = 0.5f + 0.5f * sinf(millis() / 1000.0f * TWO_PI / pulsePeriodS);
       level = TREND_FADE_MIN + (HIGHLIGHT_BRIGHT - TREND_FADE_MIN) * wave;
     }
-    if (trend == TREND_RISING)  for (int i = 0; i < p.nRising;  i++) setRGB(p.risingLeds[i],  p.risingRGB,  level / 255.0f);
-    if (trend == TREND_FALLING) for (int i = 0; i < p.nFalling; i++) setRGB(p.fallingLeds[i], p.fallingRGB, level / 255.0f);
+    if (showWords) { level = HIGHLIGHT_BRIGHT; }
+    if (trend == TREND_RISING  || showWords) for (int i = 0; i < nRise; i++) setRGB(rise[i], p.risingRGB,  level / 255.0f);
+    if (trend == TREND_FALLING || showWords) for (int i = 0; i < nFall; i++) setRGB(fall[i], p.fallingRGB, level / 255.0f);
   }
   const uint8_t red[3] = {255, 0, 0};
   int m = markerLed >= 0 ? markerLed : (p.extra == EX_DAYMAX && !isnan(dayMax) ? valueToLed(dayMax) : -1);
@@ -1062,6 +1097,7 @@ void sendInfo() {
   else if (p.nPoints == 2) { marks.add(minVal()); marks.add(topValue()); marks.add(maxVal()); }
   else for (int i = 0; i < p.nPoints; i++) marks.add(p.val[i]);
   d["units"] = unitOptions(cfg.gaugeType, ts.units);
+  d["extra"] = p.extra == EX_TREND ? "trend" : p.extra == EX_DAYMAX ? "daymax" : "";
   sendJson(d);
 }
 
@@ -1074,6 +1110,7 @@ void sendStatus() {
   d["dirty"] = tuneDirty;
   d["home"] = ts.homeOffsetDeg; d["back"] = ts.backlashDeg;
   d["tlo"] = ts.trimLowDeg;     d["thi"] = ts.trimHighDeg;
+  d["rise"] = ts.risingLeds;    d["fall"] = ts.fallingLeds;   d["led0"] = ts.led0Bearing;
   d["lm"] = cfg.lightsMode;
   char off[6]; snprintf(off, sizeof(off), "%02d:%02d", cfg.offHour, cfg.offMinute); d["off"] = off;
   d["lat"] = cfg.latitude; d["lon"] = cfg.longitude;
@@ -1149,9 +1186,19 @@ trim it here. Full at that end, fading to nothing at the top. Positive turns clo
 <button class="warn" onclick="go('/rehome')">Re-home now</button></div>
 <p>While tuning, the gauge ignores the feed; it goes back to live readings by itself after 10 minutes.</p>
 
-<h3>LED finder</h3>
-<p>Lights one LED red for 5 seconds, to find the numbers beside the words on your dial.</p>
+<h3>LEDs</h3>
+<p><b>LED finder</b>: lights one LED red for 5 seconds, so you can find the numbers beside the words on your dial.</p>
 <div class="row"><input id="led" type="number" min="0" max="83" value="0"><button class="alt" onclick="go('/led?n='+led.value)">Light it</button></div>
+<div id="words"><p><b>LEDs beside the words</b>: the numbers to light beside RISING and FALLING, separated by commas.
+<b>Apply &amp; show</b> lights both sets for 8 seconds and saves them.</p>
+<label>RISING</label><input id="rise" placeholder="e.g. 79,80,82,83,1,2">
+<label>FALLING</label><input id="fall" placeholder="e.g. 70,71,72,73,74">
+<button onclick="go('/leds?'+q({rise:$('rise').value,fall:$('fall').value}))">Apply &amp; show</button></div>
+<div id="maxled"><p><b>Day's-max LED position</b>: where LED 0 sits, in degrees clockwise from 12 o'clock.
+<b>Apply &amp; test</b> moves the pointer and lights the LED that should sit beside it, for 8 seconds, and saves the value.
+LED ahead of the pointer (clockwise): decrease. Behind it: increase. About 4° per LED.</p>
+<div class="row"><input id="led0" type="number" step="1" inputmode="decimal">
+<button onclick="go('/leds?led0='+encodeURIComponent($('led0').value))">Apply &amp; test</button></div></div>
 
 <h3>Gauge type</h3>
 <p>Each type keeps its own feed and tuning. Changing type restarts the gauge.</p>
@@ -1166,9 +1213,10 @@ const q=o=>Object.keys(o).map(k=>k+'='+encodeURIComponent(o[k])).join('&');
 function info(j){I=j;$('title').textContent='Open Gauges: '+j.title;$('units').innerHTML=j.units;
  $('gtype').innerHTML=j.types.map((t,i)=>'<option value="'+i+'"'+(i==j.type?' selected':'')+'>'+t+'</option>').join('');
  $('marks').innerHTML=j.marks.map(m=>'<button class="alt" onclick="go(\'/go?v='+m+'\')">'+m+(j.full360?'°':'')+'</button>').join('');
- $('ends').style.display=j.full360?'none':'';}
+ $('ends').style.display=j.full360?'none':'';
+ $('words').style.display=j.extra=='trend'?'':'none';$('maxled').style.display=j.extra=='daymax'?'':'none';}
 function show(j){
- if(first){['home','back','tlo','thi','lm','off','lat','lon','bright','server','port','user','topic','units'].forEach(k=>{$(k).value=(typeof j[k]=='number'&&!['lm','port','bright'].includes(k))?j[k].toFixed(k=='lat'||k=='lon'?4:1):j[k];});first=false;}
+ if(first){['home','back','tlo','thi','lm','off','lat','lon','bright','server','port','user','topic','units','rise','fall','led0'].forEach(k=>{$(k).value=(typeof j[k]=='number'&&!['lm','port','bright'].includes(k))?j[k].toFixed(k=='lat'||k=='lon'?4:1):j[k];});first=false;}
  $('st').textContent=(j.test?'Tuning':'Live')+' · '+(j.v==null?'no reading yet':j.v.toFixed(1)+' '+I.unit)+
   (j.homed?'':' · ⚠ homing failed')+(j.dirty?' · tuning not saved':'')+(j.extra?' · '+j.extra:'');
  $('lt').textContent='Backlight is '+(j.lit?'on':'off')+(j.lm==2?(j.dusk>=0?' · dusk today '+hm(j.dusk)+', off at '+j.off:' · waiting for the clock'):'');
@@ -1249,6 +1297,22 @@ void setupWeb() {
     saveTypeSettings(cfg.gaugeType, ts);
     lastMsgMs = 0; lastMsgHadValue = false; msgCount = 0;
     connectMqtt();
+    sendStatus();
+  });
+
+  web.on("/leds", []() {                  // saved straight away
+    if (web.hasArg("rise")) strlcpy(ts.risingLeds,  web.arg("rise").c_str(), sizeof(ts.risingLeds));
+    if (web.hasArg("fall")) strlcpy(ts.fallingLeds, web.arg("fall").c_str(), sizeof(ts.fallingLeds));
+    if (web.hasArg("rise") || web.hasArg("fall")) showWordsUntil = millis() + 8000;
+    if (web.hasArg("led0")) {
+      ts.led0Bearing = normDeg(web.arg("led0").toFloat());
+      float v = degToValue(90);              // 3 o'clock: pointer and LED side by side
+      queueTest({ v });
+      markerLed = valueToLed(v);
+      markerUntil = millis() + 12000;        // covers the pause before the move, then 8 s
+    }
+    saveTypeSettings(cfg.gaugeType, ts);
+    ledsDirty = true;
     sendStatus();
   });
 
@@ -1388,6 +1452,8 @@ void loop() {
   }
 
   if (finderLed >= 0 && (long)(millis() - finderUntil) > 0) { finderLed = -1; ledsDirty = true; }
+  if (markerUntil && (long)(millis() - markerUntil) > 0) { markerUntil = 0; markerLed = -1; ledsDirty = true; }
+  if (showWordsUntil && (long)(millis() - showWordsUntil) > 0) { showWordsUntil = 0; ledsDirty = true; }
 
   static unsigned long lastLed = 0;
   if (ledsDirty || (P().extra == EX_TREND && trendFast && millis() - lastLed > 30)) {
