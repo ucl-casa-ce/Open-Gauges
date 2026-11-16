@@ -43,11 +43,19 @@ The ring turns **cyan** and the gauge makes its own Wi-Fi network, **`OpenGauge-
 4. **Location:** latitude and longitude, for switching the backlight on at dusk.
 5. **Save.** The gauge joins your Wi-Fi, homes, runs its self-test and starts showing live data.
 
+<!-- Setup page screenshots to add (from a phone): images/setup_menu.png (the opening menu),
+     images/setup_wifi.png (Configure WiFi with the gauge type and feed fields), images/setup_saved.png -->
+
 The gauge won't run until a type is chosen, so a gauge with no type always opens the setup page.
 
 ## The settings page
 
 With your phone on the same Wi-Fi, browse to **`http://opengauge-<type>-xxxx.local`**, for example `http://opengauge-rain-a3f0.local`. If `.local` addresses don't work on your phone (some Android phones), use the gauge's IP address, which the Serial Monitor shows at start-up, or find it in your router's device list.
+
+<p>
+<img src="images/settings_backlight.png" width="300" alt="Settings page: backlight">
+<img src="images/settings_feed.png" width="300" alt="Settings page: weather feed with the live data check">
+</p>
 
 | Section | What it does |
 |---|---|
@@ -61,6 +69,8 @@ The page is served for **10 minutes** after start-up, or after you last used it,
 
 ### Pointer tuning
 
+<img src="images/settings_tuning.png" width="300" align="right" alt="Settings page: pointer tuning">
+
 1. **Home offset:** how far the pointer turns on from the magnet to reach the top of the dial (12 o'clock). Type a value and press **Apply & home**: the gauge finds the magnet and turns on by that amount. If it stops left of the top, increase the offset. If it goes past, decrease it.
 2. **Backlash:** the gearbox has a little play. **Apply & test** brings the pointer to the top from the left, pauses, then brings it from the right. If the second stop is to the right of the first, increase the backlash until they match. Too much does no harm.
 3. **Ends of the scale** (not on the wind direction gauge): if the top is right but one end sits a degree or two off its mark, trim that end. The correction is full at that end and fades to nothing at the top.
@@ -68,6 +78,15 @@ The page is served for **10 minutes** after start-up, or after you last used it,
 5. Press **Save tuning**.
 
 While you're tuning, the gauge ignores the feed. It goes back to live readings by itself after 10 minutes, or when you press **Back to live readings**.
+
+<br clear="right">
+
+### LEDs and gauge type
+
+<p>
+<img src="images/settings_leds.png" width="300" alt="Settings page: LED finder and the LEDs beside RISING and FALLING (pressure gauge)">
+<img src="images/settings_type.png" width="300" alt="Settings page: gauge type">
+</p>
 
 ## Wireless updates
 
