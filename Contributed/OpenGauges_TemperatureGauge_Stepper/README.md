@@ -89,6 +89,8 @@ Everything runs from USB through the Super Mini's 5V pin, wired directly. Option
 
 ## Firmware
 
+> **New (beta):** [one firmware for every stepper gauge](../OpenGauges_Stepper_Firmware/), set up from your phone, with a settings page and wireless updates. The sketches below still work.
+
 [`firmware/TemperatureGauge_ESP32C3/TemperatureGauge_ESP32C3.ino`](firmware/TemperatureGauge_ESP32C3/TemperatureGauge_ESP32C3.ino)
 
 1. Arduino IDE: install **esp32 by Espressif Systems** (v3.x) and select **ESP32C3 Dev Module**.
