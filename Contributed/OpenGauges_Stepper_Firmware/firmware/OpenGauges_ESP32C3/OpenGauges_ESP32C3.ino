@@ -13,7 +13,9 @@
     opens (if it doesn't, browse to 192.168.4.1). Choose the gauge type and your Wi-Fi,
     check the weather feed, and press Save.
   - Settings page: with your phone on the same Wi-Fi, browse to
-    http://opengauge-<type>-xxxx.local (or the gauge's IP, shown in the Serial Monitor).
+    http://opengauge-<type>.local (or the gauge's IP, shown in the Serial Monitor), where
+    <type> is winddirection, windspeed, pressure, temperature or rainfall.
+    The setup page shows the address before you save.
     Backlight, weather feed (with a live check that data is arriving), pointer tuning
     and gauge type. The page is served for 10 minutes after start-up or after it was
     last used; restart the gauge or press its BOOT button to open it again.
@@ -347,13 +349,18 @@ void hallPower(bool on) {
   }
 }
 
-String hostName() {
-  String h = "opengauge-";
-  if (cfg.gaugeType >= 0) h += String(P().name) + "-";
-  h += deviceId;
+// Network name, the same on every gauge of that type, so it's easy to find:
+// opengauge-winddirection, -windspeed, -pressure, -temperature, -rainfall.
+// Used for the .local address, the router's device list and the Arduino IDE network port.
+// A gauge with no type yet is opengauge-xxxx (xxxx from the chip).
+const char* const hostSlugs[G_COUNT] = { "winddirection", "windspeed", "pressure", "temperature", "rainfall" };
+String hostNameFor(int type) {
+  if (type >= 0 && type < G_COUNT) return String("opengauge-") + hostSlugs[type];
+  String h = "opengauge-" + deviceId;
   h.toLowerCase();
   return h;
 }
+String hostName() { return hostNameFor(cfg.gaugeType); }
 
 float normDeg(float d) { d = fmodf(d, 360.0f); return d < 0 ? d + 360.0f : d; }
 float angleDiff(float a, float b) { float d = normDeg(a - b); return d > 180.0f ? d - 360.0f : d; }
@@ -841,6 +848,8 @@ bool runSetupPortal(unsigned long timeoutS, bool onlyIfNoWiFi, bool showWiFiPass
   for (int t = 0; t < G_COUNT; t++)
     typeHtml += "<option value='" + String(t) + "'" + (t == curType ? " selected" : "") + ">" + profiles[t].title + "</option>";
   typeHtml += "</select>";
+  typeHtml += "<p><small>Once saved, this gauge's settings page is at <b id='addr'>http://" + hostName() +
+              ".local</b>. Note it down.</small></p>";
 
   int ut = curType < 0 ? G_RAIN : curType;
   String unitsHtml = "<label for='units'>Units of a key with no units in its name</label><select name='units' id='units'>" +
@@ -852,7 +861,10 @@ bool runSetupPortal(unsigned long timeoutS, bool onlyIfNoWiFi, bool showWiFiPass
     String uo = unitOptions(t, all[t].units); uo.replace("\"", "\\\"");
     js += String(t ? "," : "") + "{t:\"" + tp + "\",u:\"" + uo + "\"}";
   }
+  js += "],H=[";
+  for (int t = 0; t < G_COUNT; t++) js += String(t ? "," : "") + "\"" + hostNameFor(t) + "\"";
   js += "];document.getElementById('gtype').onchange=function(){var d=T[this.value];if(!d)return;"
+        "document.getElementById('addr').textContent='http://'+H[this.value]+'.local';"
         "document.getElementById('topic').value=d.t;document.getElementById('units').innerHTML=d.u;};</script>";
 
   char portBuf[8], latBuf[16], lonBuf[16];
@@ -937,6 +949,8 @@ bool setupButtonHeld() {                   // BOOT held for 0.7 s in the first 2
 }
 
 void connectWiFi(bool forceSetup) {
+  String hostBefore = hostName();
+  WiFi.setHostname(hostBefore.c_str());    // before mode(), or routers and LAN scanners don't see it
   WiFi.mode(WIFI_STA);
   WiFi.setSleep(false);
   WiFi.setAutoReconnect(true);
@@ -957,6 +971,13 @@ void connectWiFi(bool forceSetup) {
     STATUS_WIFI;
     Serial.printf("Connecting to Wi-Fi %s...\n", savedSsid.c_str());
     ok = runSetupPortal(180, true, false);        // setup page for 3 min only if the Wi-Fi fails
+  }
+
+  // Type just chosen: the Wi-Fi joined under the old name, so restart to join as opengauge-<type>
+  if (ok && hostName() != hostBefore) {
+    Serial.printf("Gauge type set: restarting as %s\n", hostName().c_str());
+    delay(500);
+    ESP.restart();
   }
 
   STATUS_WIFI;
@@ -1048,7 +1069,7 @@ void updateBacklightState() {
 }
 
 // ===========================================================================
-// SETTINGS PAGE — http://opengauge-<type>-xxxx.local
+// SETTINGS PAGE — http://opengauge-<type>.local
 // ===========================================================================
 const unsigned long webOpenMs = 10UL * 60UL * 1000UL;
 bool webOn = false;
@@ -1335,7 +1356,10 @@ void setupWeb() {
   });
 
   openWeb();
+  // Bonjour / LAN scanners show "Open Gauge Wind direction xxxx" rather than a bare hostname
+  MDNS.setInstanceName("Open Gauge " + String(P().title) + " " + deviceId);
   MDNS.addService("http", "tcp", 80);
+  MDNS.addServiceTxt("http", "tcp", "gauge", P().name);
 }
 
 // Called from loop() when the pointer is idle: visit queued test points

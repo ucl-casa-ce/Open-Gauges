@@ -38,10 +38,10 @@ Exactly the same as the individual gauges: ESP32-C3 Super Mini, 28BYJ-48 stepper
 The ring turns **cyan** and the gauge makes its own Wi-Fi network, **`OpenGauge-xxxx`** (password `opengauge`). Join it on your phone and the setup page opens; if it doesn't, browse to `192.168.4.1`. Tap **Configure WiFi**, then:
 
 1. Pick your Wi-Fi network and type its password.
-2. **Which gauge is this?** Choosing the type fills in that gauge's feed topic and units.
+2. **Which gauge is this?** Choosing the type fills in that gauge's feed topic and units, and shows the address of the gauge's settings page (e.g. `http://opengauge-winddirection.local`). Note it down.
 3. **Weather feed:** MQTT server, port, optional username and password, topic, and the units of a key with no units in its name. Leave the demo values in to start with if you like.
 4. **Location:** latitude and longitude, for switching the backlight on at dusk.
-5. **Save.** The gauge joins your Wi-Fi, homes, runs its self-test and starts showing live data.
+5. **Save.** The gauge joins your Wi-Fi, restarts once under its new name, homes, runs its self-test and starts showing live data.
 
 <!-- Setup page screenshots to add (from a phone): images/setup_menu.png (the opening menu),
      images/setup_wifi.png (Configure WiFi with the gauge type and feed fields), images/setup_saved.png -->
@@ -50,7 +50,30 @@ The gauge won't run until a type is chosen, so a gauge with no type always opens
 
 ## The settings page
 
-With your phone on the same Wi-Fi, browse to **`http://opengauge-<type>-xxxx.local`**, for example `http://opengauge-rain-a3f0.local`. If `.local` addresses don't work on your phone (some Android phones), use the gauge's IP address, which the Serial Monitor shows at start-up, or find it in your router's device list.
+With your phone on the same Wi-Fi, browse to **`http://opengauge-<type>.local`**, for example `http://opengauge-winddirection.local`. If `.local` addresses don't work on your phone (some Android phones), use the gauge's IP address, which the Serial Monitor shows at start-up, or find it in your router's device list.
+
+### Finding your gauge on the network
+
+Each gauge's network name is set by its type:
+
+| Gauge | Settings page | Router / LAN scan / Arduino IDE port | Bonjour name | Setup network (BOOT held) |
+|---|---|---|---|---|
+| Wind direction | `http://opengauge-winddirection.local` | `opengauge-winddirection` | Open Gauge Wind direction xxxx | `OpenGauge-Wind-xxxx` |
+| Wind speed | `http://opengauge-windspeed.local` | `opengauge-windspeed` | Open Gauge Wind speed xxxx | `OpenGauge-Speed-xxxx` |
+| Air pressure | `http://opengauge-pressure.local` | `opengauge-pressure` | Open Gauge Air pressure xxxx | `OpenGauge-Pressure-xxxx` |
+| Temperature | `http://opengauge-temperature.local` | `opengauge-temperature` | Open Gauge Temperature xxxx | `OpenGauge-Temp-xxxx` |
+| Daily rainfall | `http://opengauge-rainfall.local` | `opengauge-rainfall` | Open Gauge Daily rainfall xxxx | `OpenGauge-Rain-xxxx` |
+
+`xxxx` is a four-character code from the gauge's chip (e.g. `a3f0`). It's only in the setup network's name, so you can tell gauges apart in your phone's Wi-Fi list. A new gauge with no type chosen yet makes `OpenGauge-xxxx`. Changing the type changes the name, so a gauge switched from wind speed to temperature becomes `opengauge-temperature`.
+
+**Two gauges of the same type** on one network share a name, so only one answers at the `.local` address. Reach the other by its IP address.
+
+If the address doesn't open:
+
+- **Router or LAN scanner** (e.g. Fing, LanScan): look for `opengauge-…`. Scanners and routers can keep the name a device had when it first joined, so a gauge that joined before it had a type may still show unnamed for a while. Bonjour-aware scanners list it as *Open Gauge Wind direction xxxx*.
+- **Mac:** `dns-sd -B _http._tcp local.` in Terminal lists every gauge on the network.
+- **Serial Monitor** (115200 baud): the last line at start-up gives the address and IP.
+- **10-minute window:** the settings page is only served for 10 minutes after start-up. Press BOOT to open it again.
 
 <p>
 <img src="images/settings_backlight.png" width="300" alt="Settings page: backlight">
@@ -90,7 +113,7 @@ While you're tuning, the gauge ignores the feed. It goes back to live readings b
 
 ## Wireless updates
 
-Once the gauge is on your Wi-Fi it shows up in the Arduino IDE under **Tools → Port** as a network port, `opengauge-<type>-xxxx`. Choose it and upload as normal; the ring fills green as the update goes in. The IDE asks for a password even if you didn't set one: type anything. If you set a password for wireless uploads on the setup page, use that.
+Once the gauge is on your Wi-Fi it shows up in the Arduino IDE under **Tools → Port** as a network port, `opengauge-<type>` (see [Finding your gauge on the network](#finding-your-gauge-on-the-network)). Choose it and upload as normal; the ring fills green as the update goes in. The IDE asks for a password even if you didn't set one: type anything. If you set a password for wireless uploads on the setup page, use that.
 
 An update goes into a spare slot in the flash and only takes over once it's complete and checked, so an interrupted upload leaves the old firmware running. Your settings aren't touched.
 
