@@ -99,7 +99,7 @@ enum Extra { EX_NONE, EX_TREND, EX_DAYMAX };
 struct KeyDef { const char* key; const char* unit; };   // unit nullptr = "bare" key
 
 // JSON keys to look for, best first
-const KeyDef dirKeys[]   = {{"windDir","deg"},{"wind_dir","deg"},{"windDir_degree_compass","deg"},{"winddir","deg"}};
+const KeyDef dirKeys[]   = {{"winddir1min","deg"},{"windDir1min","deg"},{"windDir","deg"},{"wind_dir","deg"},{"windDir_degree_compass","deg"},{"winddir","deg"}};
 const KeyDef speedKeys[] = {{"windgust1min",nullptr},{"windGust1min",nullptr},{"windGust_mph","mph"},
                             {"windGust_kph","kph"},{"windGust_mps","mps"},{"windGust_knot","knot"},
                             {"windGust",nullptr},{"value",nullptr}};
@@ -150,7 +150,7 @@ struct Profile {
 #define COUNT_OF(a) (int)(sizeof(a) / sizeof(a[0]))
 const Profile profiles[G_COUNT] = {
   { "Wind", "Wind direction", "°", true, 2, {0, 360}, {0, 360}, -360, 720, 2.0, 1.0,
-    DEMO_FEED "windDir", 6.0, 4.0, "deg:degrees", "deg", "deg",
+    DEMO_FEED "winddir1min", 6.0, 4.0, "deg:degrees", "deg", "deg",
     dirKeys, COUNT_OF(dirKeys), nullptr, 0, EX_NONE, 0, 0, 0, nullptr, 0, nullptr, 0, {0,0,0}, {0,0,0} },
   { "Speed", "Wind speed", "mph", false, 2, {0, 40}, {-135, 135}, 0, 200, 0.2, 1.0,
     DEMO_FEED "windgust1min", 17.0, 2.0, "mph:mph,kph:km/h,mps:m/s,knot:knots", "mph", "mph",

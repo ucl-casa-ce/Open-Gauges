@@ -127,7 +127,7 @@ If the saved Wi-Fi can't be found at start-up, the setup page opens by itself fo
 
 | Gauge | Scale | Feed (JSON keys tried, best first) | Extra |
 |---|---|---|---|
-| Wind direction | full 360°, shortest way round | `windDir`, `wind_dir`, or a plain number | ignores calm (no direction) |
+| Wind direction | full 360°, shortest way round | `winddir1min` (1-minute average), `windDir`, `wind_dir`, or a plain number | ignores calm (no direction) |
 | Wind speed | 0–40 mph, 20 at the top | `windgust1min`, `windGust_mph/_kph/_mps/_knot`, `windGust`, or a plain number | red LED beside today's highest gust, reset at midnight |
 | Air pressure | 950–1050 hPa, 1000 at the top | `barometer_mbar/_hPa/_inHg`, `barometer`, `pressure…` (inHg is spotted automatically) | 3-hour trend lights RISING (green) or FALLING (amber); pulses for a rapid change |
 | Temperature | −10 to 40 °C, 15 at the top | `outTemp_C`, `outTemp_F`, `outTemp`, `temperature…` | 3-hour trend lights RISING (amber) or FALLING (blue) |
